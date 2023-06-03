@@ -244,3 +244,16 @@ for (i in 1:length(labels)) {
 }
 
 ####It is clearly seen that there is positive correlation between price and areas i.e. if the area increases price will also increases expect 3SsnPorch (three season porch) and PoolArea.
+
+#Neighborhood vs Sale Price
+library(ggplot2)
+
+ggplot(train, aes(x = Neighborhood, y = SalePrice)) +
+  geom_bar(stat = "identity") +
+  labs(x = NULL, y = "Sale Price") +
+  ggtitle("Neighborhood") +
+  scale_y_continuous(labels = scales::comma) +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+**Note:** We can see that the prices of the house having NoRidge, NridgHt, StoneBr and Timber neighborhoods are very high.
+
