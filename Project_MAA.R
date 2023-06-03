@@ -394,3 +394,15 @@ for (i in seq_along(labels)) {
 
 # Arrange the plots in a grid
 grid.arrange(grobs = plots, ncol = 3)
+
+#######Garage
+par(mfrow = c(1, 3))
+labels <- c("GarageType", "GarageFinish", "GarageCars")
+
+for (i in 1:length(labels)) {
+  if (i <= 3) {
+    barplot(tapply(train$SalePrice, train[, labels[i]], mean), xlab = labels[i], ylab = "SalePrice")
+    title(main = labels[i])
+  }
+}
+
