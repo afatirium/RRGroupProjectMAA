@@ -153,3 +153,8 @@ for (i in obj_mode) {
 
 # Fill in missing values for the Utilities feature
 test$Utilities[is.na(test$Utilities)] <- "NoSeWa"
+
+# Fill in missing values for the Exterior1st feature
+test$Exterior1st[is.na(test$Exterior1st)] <- "ImStucc"
+# Fill in missing values for the Exterior2nd feature
+test$Exterior2nd[is.na(test$Exterior2nd)] <- "Other"
