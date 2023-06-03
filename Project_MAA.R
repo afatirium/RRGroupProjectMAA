@@ -71,7 +71,22 @@ stat_cont
 tr_cont <- train[, !sapply(train, is.character)]
 head(tr_cont)
 
+corr <- cor(tr_cont)
+library(ggplot2)
+library(tidyr)
 
+melted_corr <- as.data.frame(as.table(corr))
+colnames(melted_corr) <- c("Var1", "Var2", "value")
+
+# Increase the plot size
+options(repr.plot.width = 10, repr.plot.height = 10)
+
+ggplot(melted_corr, aes(x = Var1, y = Var2, fill = value)) +
+  geom_tile(color = "white") +  # Set the tile border color to white
+  scale_fill_gradient(low = "red", high = "yellow") +
+  labs(title = "Correlation Heatmap") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),  # Rotate x-axis labels
+        panel.grid = element_blank())  # Remove grid lines
 
 
 
