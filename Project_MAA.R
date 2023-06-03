@@ -369,3 +369,28 @@ for (i in 1:length(labels)) {
   }
 }
 
+# Basement
+
+library(ggplot2)
+library(scales)
+library(gridExtra)
+
+# Create a list of labels
+labels <- c("BsmtExposure", "BsmtFinType1", "BsmtFinType2")
+
+# Create an empty list to store the plots
+plots <- list()
+
+# Loop through the labels and create bar plots
+for (i in seq_along(labels)) {
+  plot <- ggplot(train, aes_string(x = labels[i], y = "SalePrice")) +
+    geom_bar(stat = "identity") +
+    labs(x = NULL, y = "Sale Price") +
+    ggtitle(labels[i]) +
+    scale_y_continuous(labels = dollar_format(scale = 1e-6, prefix = "$"))
+  
+  plots[[i]] <- plot
+}
+
+# Arrange the plots in a grid
+grid.arrange(grobs = plots, ncol = 3)
