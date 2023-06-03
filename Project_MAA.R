@@ -158,3 +158,17 @@ test$Utilities[is.na(test$Utilities)] <- "NoSeWa"
 test$Exterior1st[is.na(test$Exterior1st)] <- "ImStucc"
 # Fill in missing values for the Exterior2nd feature
 test$Exterior2nd[is.na(test$Exterior2nd)] <- "Other"
+
+##Clean continues variables:
+##Fill missing variables
+
+# # Fill in missing values for the LotFrontage and MasVnrArea features
+library(zoo)
+
+obj_median <- c("LotFrontage", "MasVnrArea")
+
+for (i in obj_median) {
+  train[[i]] <- na.aggregate(train[[i]], FUN = median)
+  test[[i]] <- na.aggregate(test[[i]], FUN = median)
+}
+
