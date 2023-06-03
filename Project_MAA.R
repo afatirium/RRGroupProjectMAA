@@ -406,3 +406,35 @@ for (i in 1:length(labels)) {
   }
 }
 
+##Month and Year of Sold
+yearsold <- c(2006:2010)
+monthsold <- c("January","February","March","April","May","June","July","August","September","October","November","December")
+years <- table(train$YrSold)
+months <- table(train$MoSold)
+
+plt <- ggplot() +
+  theme_minimal()
+
+plt <- plt +
+  geom_bar(data = data.frame(years), aes(x = factor(Var1, levels = yearsold), y = Freq),
+           stat = "identity", fill = "steelblue") +
+  coord_polar(theta = "y") +
+  labs(x = NULL, y = NULL, title = "Years Sold") +
+  theme(plot.title = element_text(size = 14),
+        axis.text.x = element_blank(),
+        axis.ticks.x = element_blank())
+
+plt <- plt +
+  geom_bar(data = data.frame(months), aes(x = factor(Var1, levels = monthsold), y = Freq),
+           stat = "identity", fill = "steelblue") +
+  coord_polar(theta = "y") +
+  labs(x = NULL, y = NULL, title = "Months Sold") +
+  theme(plot.title = element_text(size = 14),
+        axis.text.x = element_blank(),
+        axis.ticks.x = element_blank())
+
+plt <- plt +
+  facet_wrap(~ NULL, ncol = 3) +
+  theme(plot.margin = margin(10, 10, 10, 10))
+
+print(plt)
