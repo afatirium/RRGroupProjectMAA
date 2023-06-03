@@ -200,3 +200,28 @@ for (i in int_list) {
 #check the shape of dataset
 dim(train)
 
+####Feature Selection
+
+##### 1. Correlation Analysis
+
+# Filter numeric variables
+numeric_vars <- sapply(train, is.numeric)
+
+# Calculate correlation matrix
+correlations <- cor(train[, numeric_vars])
+
+# Sort correlations with 'SalePrice'
+sorted_correlations <- sort(correlations[,"SalePrice"], decreasing = TRUE)
+
+# Display the most positive correlations
+cat("Most Positive Correlations:\n")
+print(tail(sorted_correlations, 10))
+
+# Display the most negative correlations
+cat("\nMost Negative Correlations:\n")
+print(head(sorted_correlations, 10))
+
+
+
+
+
