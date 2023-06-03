@@ -188,5 +188,13 @@ for (i in obj_mode) {
 train$GarageYrBlt <- ifelse(is.na(train$GarageYrBlt), train$YearBuilt, train$GarageYrBlt)
 test$GarageYrBlt <- ifelse(is.na(test$GarageYrBlt), test$YearBuilt, test$GarageYrBlt)
 
+# Converting dtype to 'int64'
+int_list <- c("LotFrontage", "BsmtFinSF1", "BsmtFinSF2", "BsmtUnfSF", "TotalBsmtSF", "BsmtFullBath", "BsmtHalfBath", "GarageYrBlt", "GarageCars", "GarageArea")
+
+for (i in int_list) {
+  train[[i]] <- as.integer(train[[i]])
+  test[[i]] <- as.integer(test[[i]])
+}
+
 
 
