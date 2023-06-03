@@ -122,3 +122,19 @@ train <- train[, !(colnames(train) %in% "PoolQC")]
 # Drop the "PoolQC" column from the test dataset
 test <- test[, !(colnames(test) %in% "PoolQC")]
 
+
+#########Fill the missing variables for the categorical variables:
+
+# Define the features with missing values
+obj_NA <- c("Alley", "BsmtQual", "BsmtCond", "BsmtExposure", "BsmtFinType1",
+            "BsmtFinType2", "FireplaceQu", "GarageType", "GarageFinish",
+            "GarageQual", "GarageCond", "Fence", "MiscFeature")
+
+# Fill in missing values with "NA" for the specified features in the train dataset
+for (i in obj_NA) {
+  train[, i][is.na(train[, i])] <- "NA"
+}
+
+# Fill in missing values with "NA" for the specified features in the test dataset
+for (i in obj_NA) {
+  test[, i][is.na(test[, i])] <- "NA"
