@@ -150,3 +150,6 @@ for (i in obj_mode) {
   train[[i]][is.na(train[[i]])] <- names(which.max(table(train[[i]])))
   test[[i]][is.na(test[[i]])] <- names(which.max(table(test[[i]])))
 }
+
+# Fill in missing values for the Utilities feature
+test$Utilities[is.na(test$Utilities)] <- "NoSeWa"
