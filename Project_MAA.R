@@ -318,3 +318,42 @@ plt <- plt + theme_minimal() +
 print(plt)
 
 #Note: Prices of the house having Ex (excellent) and Gd (good) condition are very high.
+
+# Bathroom condition  
+
+library(ggplot2)
+library(gridExtra)
+library(scales)
+
+# Custom function to format labels in millions
+formatMillions <- function(x) {
+  paste0(format(x / 1e6, big.mark = ","), "")
+}
+
+# Create individual bar plots
+plot1 <- ggplot(train, aes(x = BsmtFullBath, y = SalePrice)) +
+  geom_bar(stat = "identity") +
+  labs(x = NULL, y = "Sale Price (in million)") +
+  ggtitle("BsmtFullBath") +
+  scale_y_continuous(labels = formatMillions)
+
+plot2 <- ggplot(train, aes(x = BsmtHalfBath, y = SalePrice)) +
+  geom_bar(stat = "identity") +
+  labs(x = NULL, y = "Sale Price (in million)") +
+  ggtitle("BsmtHalfBath") +
+  scale_y_continuous(labels = formatMillions)
+
+plot3 <- ggplot(train, aes(x = FullBath, y = SalePrice)) +
+  geom_bar(stat = "identity") +
+  labs(x = NULL, y = "Sale Price (in million)") +
+  ggtitle("FullBath") +
+  scale_y_continuous(labels = formatMillions)
+
+plot4 <- ggplot(train, aes(x = HalfBath, y = SalePrice)) +
+  geom_bar(stat = "identity") +
+  labs(x = NULL, y = "Sale Price (in million)") +
+  ggtitle("HalfBath") +
+  scale_y_continuous(labels = formatMillions)
+
+# Arrange the plots in a grid
+grid.arrange(plot1, plot2, plot3, plot4, ncol = 2)
