@@ -10,3 +10,5 @@ row.names(test) <- test$Id
 test$Id <- NULL
 
 ### Data Exploration and Preprocessing
+summary(train$SalePrice)
+
