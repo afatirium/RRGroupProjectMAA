@@ -298,4 +298,4 @@ for (i in labels) {
   
   col <- col + 1
 }
-
+####Note: It can be seen that there is positive relation between quality and price. Price increases according to the quality.
