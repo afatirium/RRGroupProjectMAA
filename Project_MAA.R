@@ -97,3 +97,28 @@ features <- names(tr_cont)[!(names(tr_cont) %in% c("Id", "OverallQual", "Overall
 for (i in 1:length(features)) {
   hist(tr_cont[[features[i]]], main = paste("Histogram for", features[i]), xlab = features[i], col ="lightblue")
 }
+
+######## Missing values
+# Check the missing values for train dataset
+missing_values <- colSums(is.na(train))
+missing_values <- missing_values[order(-missing_values)]
+
+
+# Display the top 20 variables with the highest number of missing values
+head(missing_values, 20)
+
+# Check the missing values for test dataset
+missing_values <- colSums(is.na(test))
+missing_values <- missing_values[order(-missing_values)]
+
+# Display the top 35 variables with the highest number of missing values
+head(missing_values, 35)
+
+##Note: For both dataset some variables have a lot missing values: PoolQC, MiscFeature, Alley, Fence, FireplaceQu, LotFrontage
+
+# Drop the "PoolQC" column from the train dataset
+train <- train[, !(colnames(train) %in% "PoolQC")]
+
+# Drop the "PoolQC" column from the test dataset
+test <- test[, !(colnames(test) %in% "PoolQC")]
+
