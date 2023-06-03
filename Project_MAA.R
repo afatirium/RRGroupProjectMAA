@@ -95,5 +95,5 @@ features <- names(tr_cont)[!(names(tr_cont) %in% c("Id", "OverallQual", "Overall
                                                    "GarageYrBlt", "GarageCars", "MoSold", "YrSold", "SalePrice"))]
 
 for (i in 1:length(features)) {
-  hist(tr_cont[[features[i]]], main = paste("Histogram for", features[i]), xlab = features[i], col = "lightblue")
+  hist(tr_cont[[features[i]]], main = paste("Histogram for", features[i]), xlab = features[i], col ="lightblue")
 }
