@@ -44,3 +44,7 @@ str(train)
 
 #- Some variables, such as **YearBuilt, YearRemodAdd, GarageYrBlt, YrSold, MoSold** are numeric variables, which is related to the year.
 #- Some variables have a lot of null value, it can be cleaned.
+
+# Explore the categorical variables
+cat_vars <- names(train)[sapply(train, is.factor)]
+
