@@ -357,3 +357,15 @@ plot4 <- ggplot(train, aes(x = HalfBath, y = SalePrice)) +
 
 # Arrange the plots in a grid
 grid.arrange(plot1, plot2, plot3, plot4, ncol = 2)
+
+######## Roof style and material
+par(mfrow = c(1, 2))
+labels <- c("RoofStyle", "RoofMatl")
+
+for (i in 1:length(labels)) {
+  if (i <= 2) {
+    barplot(tapply(train$SalePrice, train[, labels[i]], mean), xlab = labels[i], ylab = "SalePrice")
+    title(main = labels[i])
+  }
+}
+
