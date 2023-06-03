@@ -259,7 +259,7 @@ ggplot(train, aes(x = Neighborhood, y = SalePrice)) +
 
 ## Building type, House Style
 library(ggplot2)
-install.packages("ggplot2")
+##install.packages("ggplot2")
 
 ##Building type, House Style
 labels <- c("BldgType", "HouseStyle")
@@ -273,7 +273,29 @@ plt <- plt + facet_wrap(~ train[[labels[2]]], nrow = 1)
 
 plt <- plt + theme_minimal() +
   theme(plot.title = element_text(size = 14),
-        axis.text.x = element_text(angle = 45, hjust = 1))
+        axis.text.x = element_text(angle = 90, hjust = 1))
 
 print(plt)
+
+##### House Quality
+
+par(mfrow = c(2, 4))
+labels <- c("OverallQual", "ExterQual", "BsmtQual", "HeatingQC", "KitchenQual", "FireplaceQu", "GarageQual")
+col <- 1
+
+for (i in labels) {
+  if (col < 9) {
+    plot_col <- col %% 4
+    if (plot_col == 0) {
+      plot_col <- 4
+    }
+    plot_row <- ceiling(col / 4)
+    plot_index <- (plot_row - 1) * 4 + plot_col
+    
+    barplot(tapply(train$SalePrice, train[, i], mean), xlab = i, ylab = "SalePrice")
+    title(main = i)
+  }
+  
+  col <- col + 1
+}
 
