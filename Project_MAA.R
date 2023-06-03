@@ -138,3 +138,15 @@ for (i in obj_NA) {
 # Fill in missing values with "NA" for the specified features in the test dataset
 for (i in obj_NA) {
   test[, i][is.na(test[, i])] <- "NA"
+}
+
+# Fill in missing values for the MSZoning, MasVnrType, Electrical, KitchenQual, Functional and SaleType 
+obj_mode <- c("MSZoning", "MasVnrType", "Electrical", "KitchenQual", "Functional", "SaleType")
+
+train$MSZoning[train$MSZoning == "C (all)"] <- "C"
+test$MSZoning[test$MSZoning == "C (all)"] <- "C"
+
+for (i in obj_mode) {
+  train[[i]][is.na(train[[i]])] <- names(which.max(table(train[[i]])))
+  test[[i]][is.na(test[[i]])] <- names(which.max(table(test[[i]])))
+}
