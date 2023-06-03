@@ -41,3 +41,6 @@ beanplot(train$SalePrice, main = "Sales Price Distribution", ylab = "Sale Price"
 
 ## 2. Investigate Data Types
 str(train)
+
+#- Some variables, such as **YearBuilt, YearRemodAdd, GarageYrBlt, YrSold, MoSold** are numeric variables, which is related to the year.
+#- Some variables have a lot of null value, it can be cleaned.
