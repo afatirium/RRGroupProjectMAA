@@ -68,8 +68,10 @@ dfSummary(train[cat_vars])
 stat_cont <- summary(train[, sapply(train, is.numeric)])
 stat_cont
 
-tr_cont <- train[, !sapply(train, is.factor)]
+tr_cont <- train[, !sapply(train, is.character)]
 head(tr_cont)
+
+
 
 
 
