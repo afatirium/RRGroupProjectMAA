@@ -255,5 +255,25 @@ ggplot(train, aes(x = Neighborhood, y = SalePrice)) +
   scale_y_continuous(labels = scales::comma) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
 
-**Note:** We can see that the prices of the house having NoRidge, NridgHt, StoneBr and Timber neighborhoods are very high.
+##Note: We can see that the prices of the house having NoRidge, NridgHt, StoneBr and Timber neighborhoods are very high.
+
+## Building type, House Style
+library(ggplot2)
+install.packages("ggplot2")
+
+##Building type, House Style
+labels <- c("BldgType", "HouseStyle")
+
+plt <- ggplot(train, aes(x = train[[labels[1]]], y = train[["SalePrice"]])) +
+  geom_bar(stat = "identity") +
+  labs(x = NULL) +
+  ggtitle(labels[1])
+
+plt <- plt + facet_wrap(~ train[[labels[2]]], nrow = 1)
+
+plt <- plt + theme_minimal() +
+  theme(plot.title = element_text(size = 14),
+        axis.text.x = element_text(angle = 45, hjust = 1))
+
+print(plt)
 
