@@ -184,4 +184,9 @@ for (i in obj_mode) {
   test[[i]] <- replace(test[[i]], is.na(test[[i]]), Mode(test[[i]]))
 }
 
+# Fill in missing values for the GarageYrBlt feature
+train$GarageYrBlt <- ifelse(is.na(train$GarageYrBlt), train$YearBuilt, train$GarageYrBlt)
+test$GarageYrBlt <- ifelse(is.na(test$GarageYrBlt), test$YearBuilt, test$GarageYrBlt)
+
+
 
