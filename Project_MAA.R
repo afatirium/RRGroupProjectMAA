@@ -87,3 +87,13 @@ ggplot(melted_corr, aes(x = Var1, y = Var2, fill = value)) +
   labs(title = "Correlation Heatmap") +
   theme(axis.text.x = element_text(angle = 90, hjust = 1),  # Rotate x-axis labels
         panel.grid = element_blank())  # Remove grid lines
+
+# Select continuous features to plot
+features <- names(tr_cont)[!(names(tr_cont) %in% c("Id", "OverallQual", "OverallCond", "YearBuilt", "YearRemodAdd",
+                                                   "BsmtFullBath", "BsmtHalfBath", "FullBath", "HalfBath",
+                                                   "BedroomAbvGr", "KitchenAbvGr", "TotRmsAbvGrd", "Fireplaces",
+                                                   "GarageYrBlt", "GarageCars", "MoSold", "YrSold", "SalePrice"))]
+
+for (i in 1:length(features)) {
+  hist(tr_cont[[features[i]]], main = paste("Histogram for", features[i]), xlab = features[i], col = "lightblue")
+}
