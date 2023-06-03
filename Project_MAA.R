@@ -221,7 +221,26 @@ print(tail(sorted_correlations, 10))
 cat("\nMost Negative Correlations:\n")
 print(head(sorted_correlations, 10))
 
+# Area vs Sale Price
+par(mfrow=c(3, 6), mar=c(5, 4, 2, 1)) # Set the layout of subplots
 
+labels <- c("LotArea","MasVnrArea","BsmtFinSF1","BsmtFinSF2",
+            "BsmtUnfSF","TotalBsmtSF","X1stFlrSF","X2ndFlrSF",
+            "LowQualFinSF","GrLivArea","GarageArea","WoodDeckSF",
+            "OpenPorchSF","EnclosedPorch","X3SsnPorch","ScreenPorch","PoolArea")
+desc <- c("Lot Size","Masonry Seneer Area","Basement Type 1 Finished",
+          "Basement Type 2 Finished","Unfinished Basement Area",
+          "Total Basement Area","First Floor","Second Floor",
+          "Low Quality Finished","Above Grade Living Area",
+          "Size of Garage","Wood Deck Area","Open Porch Area",
+          "Enclosed Porch Area","Three Season Porch Area","Screen Porch Area","Pool Area")
 
+for (i in 1:length(labels)) {
+  if (i <= 17) {
+    plot(train[[labels[i]]], train[["SalePrice"]],
+         xlab = desc[i], ylab = "Sale Price",
+         main = desc[i], pch = 16)
+  }
+}
 
-
+####It is clearly seen that there is positive correlation between price and areas i.e. if the area increases price will also increases expect 3SsnPorch (three season porch) and PoolArea.
