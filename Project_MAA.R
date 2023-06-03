@@ -11,8 +11,7 @@ test$Id <- NULL
 
 ### Data Exploration and Preprocessing
 ## 1. Investigate TARGET value distribution
-install.packages("vioplot")
-library(vioplot)
+
 par(mfrow = c(2, 2))
 par(mar = c(4, 4, 2, 1)) # Adjusting the margins for better visualization
 
@@ -31,9 +30,14 @@ plot(train$SalePrice, rnorm(nrow(train), mean = 7, sd = 0.2), main = "Sales Pric
 boxplot(train$SalePrice, main = "Sales Price Distribution", ylab = "Sale Price",
         col = "lightgreen")
 
+
 # Subplot 4
-# Subplot 4
-install.packages("beanplot")
+#install.packages("beanplot")
 library(beanplot)
 beanplot(train$SalePrice, main = "Sales Price Distribution", ylab = "Sale Price",
-         col = "lightpink", what = c(1, 1, 0, 0), bw = 0.2)
+         col = "lightpink", what = c(1, 1, 0, 0), bw = 0.2)
+
+##Note: Target is is continuous, and the distribution is skewed to the right. Mostly house price ranges from 100,000 to 200,000
+
+## 2. Investigate Data Types
+str(train)
