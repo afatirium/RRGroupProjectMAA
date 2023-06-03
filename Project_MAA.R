@@ -1,7 +1,7 @@
 #House pricing Model
 ##Load Dataset
 getwd()
-#setwd('C:\\Users\\Afat\\Documents\\GitHub\\RRGroupProjectMAA') #Afet add setwd for herself
+setwd('C:\\Users\\Afat\\Documents\\GitHub\\RRGroupProjectMAA') #Afet add setwd for herself
 train <- read.csv("train.csv", h=T)
 test <- read.csv("test.csv", h=T)
 row.names(train) <- train$Id
@@ -392,6 +392,7 @@ for (i in seq_along(labels)) {
   plots[[i]] <- plot
 }
 
+
 # Arrange the plots in a grid
 grid.arrange(grobs = plots, ncol = 3)
 
@@ -406,7 +407,7 @@ for (i in 1:length(labels)) {
   }
 }
 
-##Month and Year of Sold
+##Month and Year of Sold - need to correct the pie chart
 yearsold <- c(2006:2010)
 monthsold <- c("January","February","March","April","May","June","July","August","September","October","November","December")
 years <- table(train$YrSold)
