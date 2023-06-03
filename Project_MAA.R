@@ -54,3 +54,22 @@ cat_vars
 
 cat_vars <- c(cat_vars, "MSSubClass")
 cat_vars
+
+length(cat_vars)
+train[cat_vars] <- lapply(train[cat_vars], as.character)
+t(sapply(train[cat_vars], summary))
+
+#install.packages("summarytools")
+library(summarytools)
+## Summary for categorical variables
+dfSummary(train[cat_vars]) 
+
+#Explore the continues variables, adding summary statistic for continues variables
+stat_cont <- summary(train[, sapply(train, is.numeric)])
+stat_cont
+
+tr_cont <- train[, !sapply(train, is.factor)]
+head(tr_cont)
+
+
+
