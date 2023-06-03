@@ -197,4 +197,6 @@ for (i in int_list) {
 }
 
 
+#check the shape of dataset
+dim(train)
 
