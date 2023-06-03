@@ -46,5 +46,5 @@ str(train)
 #- Some variables have a lot of null value, it can be cleaned.
 
 # Explore the categorical variables
-cat_vars <- names(train)[sapply(train, is.factor)]
-
+cat_vars <- names(train)[sapply(train, is.character)]
+cat_vars
