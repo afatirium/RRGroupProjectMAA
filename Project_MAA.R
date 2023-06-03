@@ -172,3 +172,16 @@ for (i in obj_median) {
   test[[i]] <- na.aggregate(test[[i]], FUN = median)
 }
 
+#  Fill in missing values for the BsmtFinSF1, BsmtFinSF2, BsmtUnfSF, TotalBsmtSF, BsmtFullBath, BsmtHalfBath, GarageCars and GarageArea features
+Mode <- function(x) {
+  ux <- unique(x)
+  ux[which.max(tabulate(match(x, ux)))]
+}
+
+obj_mode <- c("BsmtFinSF1", "BsmtFinSF2", "BsmtUnfSF", "TotalBsmtSF", "BsmtFullBath", "BsmtHalfBath", "GarageCars", "GarageArea")
+
+for (i in obj_mode) {
+  test[[i]] <- replace(test[[i]], is.na(test[[i]]), Mode(test[[i]]))
+}
+
+
