@@ -48,3 +48,9 @@ str(train)
 # Explore the categorical variables
 cat_vars <- names(train)[sapply(train, is.character)]
 cat_vars
+
+## **MSSubClass** is also categorical by definition, despite its numeric values. 
+## MSSubClass** should be added to the list of categorical variables
+
+cat_vars <- c(cat_vars, "MSSubClass")
+cat_vars
