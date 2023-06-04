@@ -731,3 +731,7 @@ new_row <- data.frame(Model = "SVR",
 
 # Append the new row to the models data frame
 models <- rbind(models, new_row)
+
+#Comparison of the result of the models
+comparison_models <- models[order(models$RMSE), ]
+comparison_models
