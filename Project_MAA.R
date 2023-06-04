@@ -505,6 +505,56 @@ y_train <- y[train_indices]
 X_test <- X[-train_indices, ]
 y_test <- y[-train_indices]
 
+### Standardize Features
+# Fit the scaler on the training data
+
+scaler <- scale(X_train)
+
+# Apply the scaler to the training data
+X_train_scaled <- scaler
+
+# Apply the scaler to the test data
+X_test_scaled <- scale(X_test, center = attr(scaler, "scaled:center"), scale = attr(scaler, "scaled:scale"))
+
+##
+# Calculate the mean and standard deviation from the training set
+scale_params <- apply(X_train, 2, mean)
+scale_sd <- apply(X_train, 2, sd)
+
+# Scale the training set
+X_train_scaled <- scale(X_train, center = scale_params, scale = scale_sd)
+
+# Scale the test set using the scaling parameters from the training set
+X_test_scaled <- scale(X_test, center = scale_params, scale = scale_sd)
+
+##MODELs
+
+#Let's build initial functions for the models.
+# build finction for loss function
+rmse_cv <- function(model) {
+  rmse <- sqrt(-mean(cross_val_score(model, X, y, scoring = "neg_mean_squared_error", cv = 5)))
+  return(round(rmse, 4))
+}
+
+evaluation <- function(y, predictions) {
+  mae <- mean(abs(y - predictions))
+  mse <- mean((y - predictions)^2)
+  rmse <- sqrt(mse)
+  r_squared <- 1 - (sum((y - predictions)^2) / sum((y - mean(y))^2))
+  
+  return(list(mae = round(mae, 4), mse = round(mse, 4), rmse = round(rmse, 4), r_squared = round(r_squared, 4)))
+}
+
+models <- data.frame(Model = character(),
+                     MAE = numeric(),
+                     MSE = numeric(),
+                     RMSE = numeric(),
+                     R2_Score = numeric(),
+                     RMSE_CV = numeric(),
+                     stringsAsFactors = FALSE)
+
+
+
 
 
 
