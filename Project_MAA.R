@@ -8,6 +8,10 @@
 #install.packages("scales")
 #install.packages("zoo")
 #install.packages("dplyr")
+#install.packages("gbm")
+#install.packages("glmnet")
+
+
 
 
 ##Import libraries
@@ -19,6 +23,8 @@ library(gridExtra)
 library(scales)
 library(zoo)
 library(dplyr)
+library(gbm)
+library(glmnet)
 
 ##Load Dataset
 getwd()
@@ -558,5 +564,60 @@ models <- data.frame(Model = character(),
 
 
 
+
+
+
+
+
+# Gradient Boosting Model
+library(gbm)
+
+# Fit the Gradient Boosting model
+g_boost <- gbm(y_train ~ ., data = X_train, n.trees = 100, interaction.depth = 3)
+
+# Predict on the test set
+predictions <- predict(g_boost, newdata = X_test, n.trees = 100)
+
+# Calculate evaluation metrics
+metrics <- evaluation(y_test, predictions)
+mae <- metrics$mae
+mse <- metrics$mse
+rmse <- metrics$rmse
+r_squared <- metrics$r_squared
+
+cat("MAE:", mae, "\n")
+cat("MSE:", mse, "\n")
+cat("RMSE:", rmse, "\n")
+cat("R2 Score:", r_squared, "\n")
+cat("----------------------------------\n")
+
+
+# Perform cross-validation using cv.glmnet
+cv_fit <- cv.glmnet(x = as.matrix(X), y = y, nfolds = 5, alpha = 0.5)
+
+# Calculate the RMSE
+rmse_cv <- sqrt(cv_fit$cvm)
+
+# Print the RMSE for each fold
+cat("RMSE (Cross-Validation):", rmse_cv, "\n")
+
+# Get the average RMSE
+mean_rmse_cv <- mean(rmse_cv)
+cat("Mean RMSE (Cross-Validation):", mean_rmse_cv, "\n")
+
+# Append the average RMSE to the models data frame
+models$`RMSE (Cross-Validation)`[models$Model == "GradientBoosting"] <- mean_rmse_cv
+
+
+# Create a new row for the model results
+new_row <- data.frame(Model = "GradientBoosting",
+                      MAE = mae,
+                      MSE = mse,
+                      RMSE = rmse,
+                      R2_Score = r_squared,
+                      RMSE_CV = mean_rmse_cv)
+
+# Append the new row to the models data frame
+models <- rbind(models, new_row)
 
 
