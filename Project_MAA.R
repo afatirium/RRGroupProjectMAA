@@ -277,9 +277,8 @@ ggplot(train, aes(x = Neighborhood, y = SalePrice)) +
 
 ## Building type, House Style
 
+library(scales)
 
-
-##Building type, House Style
 labels <- c("BldgType", "HouseStyle")
 
 plt <- ggplot(train, aes(x = train[[labels[1]]], y = train[["SalePrice"]])) +
@@ -290,10 +289,12 @@ plt <- ggplot(train, aes(x = train[[labels[1]]], y = train[["SalePrice"]])) +
 plt <- plt + facet_wrap(~ train[[labels[2]]], nrow = 1)
 
 plt <- plt + theme_minimal() +
+  scale_y_continuous(labels = scales::comma) +
   theme(plot.title = element_text(size = 14),
         axis.text.x = element_text(angle = 90, hjust = 1))
 
 print(plt)
+
 
 ##### House Quality
 
