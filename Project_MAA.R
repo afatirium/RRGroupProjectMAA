@@ -1,7 +1,27 @@
 #House pricing Model
+##install libraries
+#install.packages("beanplot")
+#install.packages("summarytools")
+#install.packages("ggplot2")
+#install.packages("tidyr")
+#install.packages("gridExtra")
+#install.packages("scales")
+#install.packages("zoo")
+
+
+##Import libraries
+library(beanplot)
+library(summarytools)
+library(ggplot2)
+library(tidyr)
+library(gridExtra)
+library(scales)
+library(zoo)
+
+
 ##Load Dataset
 getwd()
-setwd('C:\\Users\\Afat\\Documents\\GitHub\\RRGroupProjectMAA') #Afet add setwd for herself
+#setwd('C:\\Users\\Afat\\Documents\\GitHub\\RRGroupProjectMAA') #Afet add setwd for herself
 train <- read.csv("train.csv", h=T)
 test <- read.csv("test.csv", h=T)
 row.names(train) <- train$Id
@@ -33,7 +53,7 @@ boxplot(train$SalePrice, main = "Sales Price Distribution", ylab = "Sale Price",
 
 # Subplot 4
 #install.packages("beanplot")
-library(beanplot)
+
 beanplot(train$SalePrice, main = "Sales Price Distribution", ylab = "Sale Price",
          col = "lightpink", what = c(1, 1, 0, 0), bw = 0.2)
 
@@ -59,8 +79,7 @@ length(cat_vars)
 train[cat_vars] <- lapply(train[cat_vars], as.character)
 t(sapply(train[cat_vars], summary))
 
-#install.packages("summarytools")
-library(summarytools)
+
 ## Summary for categorical variables
 dfSummary(train[cat_vars]) 
 
@@ -72,8 +91,7 @@ tr_cont <- train[, !sapply(train, is.character)]
 head(tr_cont)
 
 corr <- cor(tr_cont)
-library(ggplot2)
-library(tidyr)
+
 
 melted_corr <- as.data.frame(as.table(corr))
 colnames(melted_corr) <- c("Var1", "Var2", "value")
@@ -163,7 +181,7 @@ test$Exterior2nd[is.na(test$Exterior2nd)] <- "Other"
 ##Fill missing variables
 
 # # Fill in missing values for the LotFrontage and MasVnrArea features
-library(zoo)
+
 
 obj_median <- c("LotFrontage", "MasVnrArea")
 
@@ -246,7 +264,7 @@ for (i in 1:length(labels)) {
 ####It is clearly seen that there is positive correlation between price and areas i.e. if the area increases price will also increases expect 3SsnPorch (three season porch) and PoolArea.
 
 #Neighborhood vs Sale Price
-library(ggplot2)
+
 
 ggplot(train, aes(x = Neighborhood, y = SalePrice)) +
   geom_bar(stat = "identity") +
@@ -258,8 +276,8 @@ ggplot(train, aes(x = Neighborhood, y = SalePrice)) +
 ##Note: We can see that the prices of the house having NoRidge, NridgHt, StoneBr and Timber neighborhoods are very high.
 
 ## Building type, House Style
-library(ggplot2)
-##install.packages("ggplot2")
+
+
 
 ##Building type, House Style
 labels <- c("BldgType", "HouseStyle")
@@ -321,9 +339,6 @@ print(plt)
 
 # Bathroom condition  
 
-library(ggplot2)
-library(gridExtra)
-library(scales)
 
 # Custom function to format labels in millions
 formatMillions <- function(x) {
@@ -371,9 +386,7 @@ for (i in 1:length(labels)) {
 
 # Basement
 
-library(ggplot2)
-library(scales)
-library(gridExtra)
+
 
 # Create a list of labels
 labels <- c("BsmtExposure", "BsmtFinType1", "BsmtFinType2")
