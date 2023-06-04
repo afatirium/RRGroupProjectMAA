@@ -8,8 +8,6 @@
 #install.packages("scales")
 #install.packages("zoo")
 #install.packages("dplyr")
-
-
 #install.packages("gbm")
 #install.packages("glmnet")
 #install.packages("xgboost")
@@ -579,7 +577,6 @@ models <- data.frame(Model = character(),
 
 
 # Gradient Boosting Model
-library(gbm)
 
 # Fit the Gradient Boosting model
 g_boost <- gbm(y_train ~ ., data = X_train, n.trees = 100, interaction.depth = 3)
@@ -700,22 +697,29 @@ cat("R2 Score:", r_squared, "\n")
 cat("----------------------------------\n")
 
 # Perform cross-validation to calculate RMSE
-install.packages("caret", dependencies = TRUE)
-update.packages()
+set.seed(42)
+folds <- 5
+cv_results <- vector("double", folds)
 
+# Split the data into folds and perform cross-validation
+for (i in 1:folds) {
+  fold_indices <- seq(from = 1, to = nrow(X), length.out = folds + 1)
+  fold_indices <- fold_indices[i:(i+1)]
+  train_indices <- setdiff(1:nrow(X), fold_indices)
+  
+  fold_X_train <- X[train_indices, ]
+  fold_y_train <- y[train_indices]
+  fold_X_test <- X[fold_indices, ]
+  fold_y_test <- y[fold_indices]
+  
+  fold_svr <- svm(fold_X_train, fold_y_train, kernel = "radial", cost = 100000)
+  fold_predictions <- predict(fold_svr, fold_X_test)
+  cv_results[i] <- sqrt(mean((fold_predictions - fold_y_test)^2))
+}
 
-library(caret)
+cv_rmse <- mean(cv_results)
 
-# Define the train control with 5-fold cross-validation
-ctrl <- trainControl(method = "cv", number = 5)
-
-# Perform cross-validation using train() function
-cv_model <- train(x = X, y = y, method = "svmRadial", trControl = ctrl)
-
-# Get the cross-validated RMSE
-rmse_cv <- cv_model$results$RMSE
-
-cat("RMSE (Cross-Validation):", rmse_cv, "\n")
+cat("RMSE Cross-Validation:", cv_rmse, "\n")
 
 # Create a new row for the model results
 new_row <- data.frame(Model = "SVR",
@@ -723,9 +727,7 @@ new_row <- data.frame(Model = "SVR",
                       MSE = mse,
                       RMSE = rmse,
                       R2_Score = r_squared,
-                      RMSE_CV = rmse_cv)
+                      RMSE_CV = cv_rmse)
 
 # Append the new row to the models data frame
 models <- rbind(models, new_row)
-
-models
