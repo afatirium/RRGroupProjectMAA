@@ -320,21 +320,30 @@ for (i in labels) {
 ####Note: It can be seen that there is positive relation between quality and price. Price increases according to the quality.
 
 ###House condition
-
 labels <- c("OverallCond", "ExterCond", "BsmtCond", "GarageCond")
+cols <- 1
 
-plt <- ggplot(train, aes(x = train[[labels[1]]], y = train[["SalePrice"]])) +
-  geom_bar(stat = "identity") +
-  labs(x = NULL) +
-  ggtitle(labels[1])
+plots <- list()
 
-plt <- plt + facet_wrap(~ train[[labels[2]]], nrow = 2)
+for (i in labels) {
+  if (cols < 5) {
+    plt <- ggplot(train, aes(x = train[[i]], y = train[["SalePrice"]])) +
+      geom_bar(stat = "identity") +
+      labs(x = NULL) +
+      ggtitle(i) +
+      theme_minimal() +
+      theme(plot.title = element_text(size = 14),
+            axis.text.x = element_text(angle = 90, hjust = 1)) +
+      scale_y_continuous(labels = scales::comma)
+    
+    plots[[cols]] <- plt
+  }
+  cols <- cols + 1
+}
 
-plt <- plt + theme_minimal() +
-  theme(plot.title = element_text(size = 14),
-        axis.text.x = element_text(angle = 45, hjust = 1))
+grid.arrange(grobs = plots, nrow = 2, ncol = 2, top = "Subplots")
 
-print(plt)
+
 
 #Note: Prices of the house having Ex (excellent) and Gd (good) condition are very high.
 
@@ -386,8 +395,6 @@ for (i in 1:length(labels)) {
 }
 
 # Basement
-
-
 
 # Create a list of labels
 labels <- c("BsmtExposure", "BsmtFinType1", "BsmtFinType2")
