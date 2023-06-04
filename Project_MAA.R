@@ -459,4 +459,17 @@ for (feature in features) {
   }
 }
 
+#Box-Cox Power Transformation
+train$LotFrontage <- train$LotFrontage^(1/3)
+train$LotArea <- train$LotArea^(1/6)
+train$MasVnrArea <- train$MasVnrArea^(1/1.5)
+train$BsmtFinSF1 <- train$BsmtFinSF1^(1/1.4)
+train$BsmtUnfSF <- train$BsmtUnfSF^(1/1.5)
+train$TotalBsmtSF <- train$TotalBsmtSF^(1/1.4)
+train$X1stFlrSF <- train$X1stFlrSF^(1/4)
+train$GrLivArea <- train$GrLivArea^(1/4.5)
+train$GarageArea <- train$GarageArea^(1/1.1)
+train$WoodDeckSF <- train$WoodDeckSF^(1/1.2)
+train$OpenPorchSF <- train$OpenPorchSF^(1/2.5)
+
 
