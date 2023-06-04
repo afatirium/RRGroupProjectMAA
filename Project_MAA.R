@@ -486,6 +486,26 @@ for (feature in features) {
   }
 }
 
+##Split Into Train And Test Set
+
+# Drop unnecessary features
+X <- train[, !colnames(train) %in% c("SalePrice")]
+
+# Create the target variable
+y <- train$SalePrice
+
+# Set the seed for reproducibility
+set.seed(42)
+
+# Split the data into training and test sets
+train_indices <- sample(1:nrow(train), size = round(0.8 * nrow(train)), replace = FALSE)
+X_train <- X[train_indices, ]
+y_train <- y[train_indices]
+
+X_test <- X[-train_indices, ]
+y_test <- y[-train_indices]
+
+
 
 
 
