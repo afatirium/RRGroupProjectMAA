@@ -440,3 +440,23 @@ pie(months, labels = monthsold, explode = rep(0.1, 12), col = rainbow(length(mon
 
 #Note: Maximum houses were sold in year 2009 and in month of June.
 # We can also see a decline in sales from 2009 to 2010.
+
+### Transform Skewed Features
+# Plot histogram for each continuous feature to see if a transformation is necessary
+
+par(mfrow = c(4, 5), mar = c(4, 4, 2, 1), oma = c(0, 0, 2, 0))
+features <- colnames(train)
+
+col <- 1
+for (feature in features) {
+  if (class(train[[feature]]) != "character") {
+    if (!(feature %in% c("OverallQual", "OverallCond", "YearBuilt", "YearRemodAdd", "BsmtFullBath", "BsmtHalfBath", "FullBath", "HalfBath", "BedroomAbvGr", "KitchenAbvGr", "TotRmsAbvGrd", "Fireplaces", "GarageYrBlt", "GarageCars", "MoSold", "YrSold", "SalePrice"))) {
+      if (col < 21) {
+        hist(train[[feature]], main = paste("Histogram for", feature), xlab = "", ylab = "", col = "skyblue")
+      }
+      col <- col + 1
+    }
+  }
+}
+
+
