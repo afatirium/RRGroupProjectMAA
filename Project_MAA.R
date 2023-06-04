@@ -7,6 +7,7 @@
 #install.packages("gridExtra")
 #install.packages("scales")
 #install.packages("zoo")
+#install.packages("dplyr")
 
 
 ##Import libraries
@@ -17,7 +18,7 @@ library(tidyr)
 library(gridExtra)
 library(scales)
 library(zoo)
-
+library(dplyr)
 
 ##Load Dataset
 getwd()
@@ -471,5 +472,21 @@ train$GrLivArea <- train$GrLivArea^(1/4.5)
 train$GarageArea <- train$GarageArea^(1/1.1)
 train$WoodDeckSF <- train$WoodDeckSF^(1/1.2)
 train$OpenPorchSF <- train$OpenPorchSF^(1/2.5)
+
+
+### Convert Categorical Features To Numeric
+
+
+features <- colnames(train)
+
+for (feature in features) {
+  if (class(train[[feature]]) == "character") {
+    train[[feature]] <- as.integer(factor(train[[feature]]))
+    test[[feature]] <- as.integer(factor(test[[feature]]))
+  }
+}
+
+
+
 
 
