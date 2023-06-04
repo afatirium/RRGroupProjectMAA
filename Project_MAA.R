@@ -8,9 +8,12 @@
 #install.packages("scales")
 #install.packages("zoo")
 #install.packages("dplyr")
+
+
 #install.packages("gbm")
 #install.packages("glmnet")
 #install.packages("xgboost")
+#install.packages("e1071")
 
 
 
@@ -29,6 +32,7 @@ library(dplyr)
 library(gbm)
 library(glmnet)
 library(xgboost)
+library(e1071)
 
 
 ##Load Dataset
@@ -675,3 +679,53 @@ new_row <- data.frame(Model = "XGradientBoosting",
 models <- rbind(models, new_row)
 
 
+### Support Vector Regression (SVR Model)
+
+# Fit the SVR model
+svr <- svm(X_train, y_train, kernel = "radial", cost = 100000)
+
+# Predict on the test set
+predictions <- predict(svr, X_test)
+
+# Calculate evaluation metrics
+mae <- mean(abs(predictions - y_test))
+mse <- mean((predictions - y_test)^2)
+rmse <- sqrt(mse)
+r_squared <- 1 - mse / var(y_test)
+
+cat("MAE:", mae, "\n")
+cat("MSE:", mse, "\n")
+cat("RMSE:", rmse, "\n")
+cat("R2 Score:", r_squared, "\n")
+cat("----------------------------------\n")
+
+# Perform cross-validation to calculate RMSE
+install.packages("caret", dependencies = TRUE)
+update.packages()
+
+
+library(caret)
+
+# Define the train control with 5-fold cross-validation
+ctrl <- trainControl(method = "cv", number = 5)
+
+# Perform cross-validation using train() function
+cv_model <- train(x = X, y = y, method = "svmRadial", trControl = ctrl)
+
+# Get the cross-validated RMSE
+rmse_cv <- cv_model$results$RMSE
+
+cat("RMSE (Cross-Validation):", rmse_cv, "\n")
+
+# Create a new row for the model results
+new_row <- data.frame(Model = "SVR",
+                      MAE = mae,
+                      MSE = mse,
+                      RMSE = rmse,
+                      R2_Score = r_squared,
+                      RMSE_CV = rmse_cv)
+
+# Append the new row to the models data frame
+models <- rbind(models, new_row)
+
+models
