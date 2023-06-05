@@ -595,7 +595,7 @@ cat("MAE:", mae, "\n")
 cat("MSE:", mse, "\n")
 cat("RMSE:", rmse, "\n")
 cat("R2 Score:", r_squared, "\n")
-cat("----------------------------------\n")
+
 
 
 # Perform cross-validation using cv.glmnet
@@ -656,7 +656,7 @@ cat("MAE:", mae, "\n")
 cat("MSE:", mse, "\n")
 cat("RMSE:", rmse, "\n")
 cat("R2 Score:", r_squared, "\n")
-cat("----------------------------------\n")
+
 
 # Perform cross-validation to calculate RMSE
 cv_result <- xgb.cv(params = params, data = dtrain, nfold = 5, nrounds = 100)
@@ -694,7 +694,7 @@ cat("MAE:", mae, "\n")
 cat("MSE:", mse, "\n")
 cat("RMSE:", rmse, "\n")
 cat("R2 Score:", r_squared, "\n")
-cat("----------------------------------\n")
+
 
 # Perform cross-validation to calculate RMSE
 set.seed(42)
