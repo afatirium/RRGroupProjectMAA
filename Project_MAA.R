@@ -712,6 +712,17 @@ rmse_cross_val <- sqrt(mean((cv_predictions - y_train)^2))
 ## Print the RMSE Cross-Validation
 cat("RMSE Cross-Validation:", round(rmse_cross_val, 2), "\n")
 
+## Create a new row for the model's results
+new_row <- data.frame(
+  Model = "DecisionTree",
+  MAE = mae,
+  MSE = mse,
+  RMSE = rmse,
+  `R2 Score` = r_squared,
+  `RMSE (Cross-Validation)` = rmse_cross_val
+)
+
+
 
 
 
