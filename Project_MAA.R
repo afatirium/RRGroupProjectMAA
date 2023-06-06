@@ -722,6 +722,8 @@ new_row <- data.frame(
   `RMSE (Cross-Validation)` = rmse_cross_val
 )
 
+## Append the new row to the existing models dataframe
+models <- rbind(models, new_row)
 
 
 
