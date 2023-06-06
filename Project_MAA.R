@@ -702,7 +702,15 @@ cat("RMSE:", rmse, "\n")
 ## Print the R2 Score
 cat("R2 Score:", r_squared, "\n")
 
+## Perform cross-validation
+cv_results <- rpart::rpart.control(cp = 0.01)  # Set the complexity parameter
+cv_model <- rpart(y_train ~ ., data = X_train, control = cv_results)
+cv_predictions <- predict(cv_model, newdata = X_train)
 
+rmse_cross_val <- sqrt(mean((cv_predictions - y_train)^2))
+
+## Print the RMSE Cross-Validation
+cat("RMSE Cross-Validation:", round(rmse_cross_val, 2), "\n")
 
 
 
