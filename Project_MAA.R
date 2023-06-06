@@ -13,6 +13,7 @@
 #install.packages("xgboost")
 #install.packages("e1071")
 #install.packages("caret")
+#install.packages("rpart")
 
 
 
@@ -33,6 +34,7 @@ library(glmnet)
 library(xgboost)
 library(e1071)
 library(caret)
+library(rpart)
 
 
 ##Load Dataset
@@ -671,6 +673,21 @@ colnames(new_row) <- colnames(models)
 
 ## Append the new row to the existing data frame (models)
 models <- rbind(models, new_row)
+
+
+
+# Decision Tree
+
+## Train the decision tree model
+d_tree <- rpart(y_train ~ ., data = X_train)
+
+
+
+
+
+
+
+
 
 
 
