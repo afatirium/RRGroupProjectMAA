@@ -642,12 +642,18 @@ mse <- mean((ln_predictions - y_test)^2)
 rmse <- sqrt(mse)
 r_squared <- summary(lin_reg)$r.squared
 
-## Print the evaluation metrics
+### Print the evaluation metrics
 print(paste("MAE:", mae))
 print(paste("MSE:", mse))
 print(paste("RMSE:", rmse))
 print(paste("R2 Score:", r_squared))
 print("-" * 30)
+
+## Perform cross-validation and calculate RMSE
+rmse_cross_val <- sqrt(mean((predict(lin_reg, newdata = X_train) - y_train)^2))
+
+### Print the cross-validated RMSE
+print(paste("RMSE Cross-Validation:", rmse_cross_val))
 
 
 
