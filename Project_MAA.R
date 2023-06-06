@@ -636,6 +636,16 @@ lin_reg <- lm(y_train ~ ., data = X_train)
 ## Make predictions on the test set
 ln_predictions <- predict(lin_reg, newdata = X_test)
 
+## Evaluate the model
+mae <- mean(abs(ln_predictions - y_test))
+mse <- mean((ln_predictions - y_test)^2)
+rmse <- sqrt(mse)
+r_squared <- summary(lin_reg)$r.squared
+
+
+
+
+
 # Extreme Gradient Boosting (XGBoost Model)
 
 # Convert the data to DMatrix format
