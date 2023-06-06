@@ -681,6 +681,9 @@ models <- rbind(models, new_row)
 ## Train the decision tree model
 d_tree <- rpart(y_train ~ ., data = X_train)
 
+## Make predictions on the test set
+predictions <- predict(d_tree, newdata = X_test)
+
 
 
 
