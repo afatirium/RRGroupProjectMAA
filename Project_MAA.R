@@ -13,6 +13,7 @@
 #install.packages("xgboost")
 #install.packages("e1071")
 #install.packages("caret")
+#install.packages("rpart")
 
 
 
@@ -33,6 +34,7 @@ library(glmnet)
 library(xgboost)
 library(e1071)
 library(caret)
+library(rpart)
 
 
 ##Load Dataset
@@ -457,8 +459,8 @@ pie(months, labels = monthsold, explode = rep(0.1, 12), col = rainbow(length(mon
 #Note: Maximum houses were sold in year 2009 and in month of June.
 # We can also see a decline in sales from 2009 to 2010.
 
-# Transform Skewed Features
-## Plot histogram for each continuous feature to see if a transformation is necessary
+### Transform Skewed Features
+# Plot histogram for each continuous feature to see if a transformation is necessary
 
 par(mfrow = c(4, 5), mar = c(4, 4, 2, 1), oma = c(0, 0, 2, 0))
 features <- colnames(train)
@@ -475,7 +477,7 @@ for (feature in features) {
   }
 }
 
-##Box-Cox Power Transformation
+#Box-Cox Power Transformation
 train$LotFrontage <- train$LotFrontage^(1/3)
 train$LotArea <- train$LotArea^(1/6)
 train$MasVnrArea <- train$MasVnrArea^(1/1.5)
@@ -489,7 +491,7 @@ train$WoodDeckSF <- train$WoodDeckSF^(1/1.2)
 train$OpenPorchSF <- train$OpenPorchSF^(1/2.5)
 
 
-# Convert Categorical Features To Numeric
+### Convert Categorical Features To Numeric
 
 
 features <- colnames(train)
@@ -501,18 +503,18 @@ for (feature in features) {
   }
 }
 
-#Split Into Train And Test Set
+##Split Into Train And Test Set
 
-## Drop unnecessary features
+# Drop unnecessary features
 X <- train[, !colnames(train) %in% c("SalePrice")]
 
-## Create the target variable
+# Create the target variable
 y <- train$SalePrice
 
-## Set the seed for reproducibility
+# Set the seed for reproducibility
 set.seed(42)
 
-## Split the data into training and test sets
+# Split the data into training and test sets
 train_indices <- sample(1:nrow(train), size = round(0.8 * nrow(train)), replace = FALSE)
 X_train <- X[train_indices, ]
 y_train <- y[train_indices]
@@ -520,28 +522,29 @@ y_train <- y[train_indices]
 X_test <- X[-train_indices, ]
 y_test <- y[-train_indices]
 
-# Standardize Features
-## Fit the scaler on the training data
+### Standardize Features
+# Fit the scaler on the training data
 
 scaler <- scale(X_train)
 
-## Apply the scaler to the training data
+# Apply the scaler to the training data
 X_train_scaled <- scaler
 
-## Apply the scaler to the test data
+# Apply the scaler to the test data
 X_test_scaled <- scale(X_test, center = attr(scaler, "scaled:center"), scale = attr(scaler, "scaled:scale"))
 
-## Calculate the mean and standard deviation from the training set
+##
+# Calculate the mean and standard deviation from the training set
 scale_params <- apply(X_train, 2, mean)
 scale_sd <- apply(X_train, 2, sd)
 
-## Scale the training set
+# Scale the training set
 X_train_scaled <- scale(X_train, center = scale_params, scale = scale_sd)
 
 # Scale the test set using the scaling parameters from the training set
 X_test_scaled <- scale(X_test, center = scale_params, scale = scale_sd)
 
-#MODELs
+##MODELs
 
 #Let's build initial functions for the models.
 # build finction for loss function
@@ -579,13 +582,13 @@ models <- data.frame(Model = character(),
 
 # Gradient Boosting Model
 
-## Fit the Gradient Boosting model
+# Fit the Gradient Boosting model
 g_boost <- gbm(y_train ~ ., data = X_train, n.trees = 100, interaction.depth = 3)
 
-## Predict on the test set
+# Predict on the test set
 predictions <- predict(g_boost, newdata = X_test, n.trees = 100)
 
-## Calculate evaluation metrics
+# Calculate evaluation metrics
 metrics <- evaluation(y_test, predictions)
 mae <- metrics$mae
 mse <- metrics$mse
@@ -598,25 +601,24 @@ cat("RMSE:", rmse, "\n")
 cat("R2 Score:", r_squared, "\n")
 
 
-
-## Perform cross-validation using cv.glmnet
+# Perform cross-validation using cv.glmnet
 cv_fit <- cv.glmnet(x = as.matrix(X), y = y, nfolds = 5, alpha = 0.5)
 
-## Calculate the RMSE
+# Calculate the RMSE
 rmse_cv <- sqrt(cv_fit$cvm)
 
-### Print the RMSE for each fold
+# Print the RMSE for each fold
 cat("RMSE (Cross-Validation):", rmse_cv, "\n")
 
-### Get the average RMSE
+# Get the average RMSE
 mean_rmse_cv <- mean(rmse_cv)
 cat("Mean RMSE (Cross-Validation):", mean_rmse_cv, "\n")
 
-## Append the average RMSE to the models data frame
+# Append the average RMSE to the models data frame
 models$`RMSE (Cross-Validation)`[models$Model == "GradientBoosting"] <- mean_rmse_cv
 
 
-## Create a new row for the model results
+# Create a new row for the model results
 new_row <- data.frame(Model = "GradientBoosting",
                       MAE = mae,
                       MSE = mse,
@@ -624,11 +626,12 @@ new_row <- data.frame(Model = "GradientBoosting",
                       R2_Score = r_squared,
                       RMSE_CV = mean_rmse_cv)
 
-## Append the new row to the models data frame
+# Append the new row to the models data frame
 models <- rbind(models, new_row)
 
 
 #Linear Regression
+
 ## Create a linear regression model
 lin_reg <- lm(y_train ~ ., data = X_train)
 
@@ -646,7 +649,6 @@ print(paste("MAE:", mae))
 print(paste("MSE:", mse))
 print(paste("RMSE:", rmse))
 print(paste("R2 Score:", r_squared))
-print("-" * 30)
 
 ## Perform cross-validation and calculate RMSE
 rmse_cross_val <- sqrt(mean((predict(lin_reg, newdata = X_train) - y_train)^2))
@@ -673,25 +675,82 @@ models <- rbind(models, new_row)
 
 
 
+# Decision Tree
+
+## Train the decision tree model
+d_tree <- rpart(y_train ~ ., data = X_train)
+
+## Make predictions on the test set
+predictions <- predict(d_tree, newdata = X_test)
+
+## Evaluate the model
+mae <- mean(abs(predictions - y_test))
+mse <- mean((predictions - y_test)^2)
+rmse <- sqrt(mse)
+r_squared <- cor(predictions, y_test)^2
+
+## Print the MAE
+cat("MAE:", mae, "\n")
+
+## Print the MSE
+cat("MSE:", mse, "\n")
+
+## Print the RMSE
+cat("RMSE:", rmse, "\n")
+
+## Print the R2 Score
+cat("R2 Score:", r_squared, "\n")
+
+## Perform cross-validation
+cv_results <- rpart::rpart.control(cp = 0.01)  # Set the complexity parameter
+cv_model <- rpart(y_train ~ ., data = X_train, control = cv_results)
+cv_predictions <- predict(cv_model, newdata = X_train)
+
+rmse_cross_val <- sqrt(mean((cv_predictions - y_train)^2))
+
+## Print the RMSE Cross-Validation
+cat("RMSE Cross-Validation:", round(rmse_cross_val, 2), "\n")
+
+## Create a new row for the model's results
+new_row <- data.frame(
+  Model = "DecisionTree",
+  MAE = mae,
+  MSE = mse,
+  RMSE = rmse,
+  `R2 Score` = r_squared,
+  `RMSE (Cross-Validation)` = rmse_cross_val
+)
+
+## Append the new row to the existing models dataframe
+models <- rbind(models, new_row)
+
+
+
+
+
+
+
+
+
 # Extreme Gradient Boosting (XGBoost Model)
 
-## Convert the data to DMatrix format
+# Convert the data to DMatrix format
 dtrain <- xgb.DMatrix(data = as.matrix(X_train), label = y_train)
 dtest <- xgb.DMatrix(data = as.matrix(X_test))
 
-## Set the parameters for the XGBoost model
+# Set the parameters for the XGBoost model
 params <- list(
   objective = "reg:squarederror",
   eval_metric = "rmse"
 )
 
-## Train the XGBoost model
+# Train the XGBoost model
 Xg_boost <- xgb.train(params = params, data = dtrain, nrounds = 100)
 
-## Predict on the test set
+# Predict on the test set
 predictions <- predict(Xg_boost, newdata = dtest)
 
-## Calculate evaluation metrics
+# Calculate evaluation metrics
 mae <- mean(abs(predictions - y_test))
 mse <- mean((predictions - y_test)^2)
 rmse <- sqrt(mse)
@@ -703,13 +762,13 @@ cat("RMSE:", rmse, "\n")
 cat("R2 Score:", r_squared, "\n")
 
 
-## Perform cross-validation to calculate RMSE
+# Perform cross-validation to calculate RMSE
 cv_result <- xgb.cv(params = params, data = dtrain, nfold = 5, nrounds = 100)
 rmse_cross_val <- min(cv_result$evaluation_log$test_rmse_mean)
 
 cat("RMSE Cross-Validation:", rmse_cross_val, "\n")
 
-## Create a new row for the model results
+# Create a new row for the model results
 new_row <- data.frame(Model = "XGradientBoosting",
                       MAE = mae,
                       MSE = mse,
@@ -717,19 +776,19 @@ new_row <- data.frame(Model = "XGradientBoosting",
                       R2_Score = r_squared,
                       RMSE_CV = rmse_cross_val)
 
-## Append the new row to the models data frame
+# Append the new row to the models data frame
 models <- rbind(models, new_row)
 
 
-# Support Vector Regression (SVR Model)
+### Support Vector Regression (SVR Model)
 
-## Fit the SVR model
+# Fit the SVR model
 svr <- svm(X_train, y_train, kernel = "radial", cost = 100000)
 
-## Predict on the test set
+# Predict on the test set
 predictions <- predict(svr, X_test)
 
-## Calculate evaluation metrics
+# Calculate evaluation metrics
 mae <- mean(abs(predictions - y_test))
 mse <- mean((predictions - y_test)^2)
 rmse <- sqrt(mse)
@@ -741,12 +800,12 @@ cat("RMSE:", rmse, "\n")
 cat("R2 Score:", r_squared, "\n")
 
 
-## Perform cross-validation to calculate RMSE
+# Perform cross-validation to calculate RMSE
 set.seed(42)
 folds <- 5
 cv_results <- vector("double", folds)
 
-## Split the data into folds and perform cross-validation
+# Split the data into folds and perform cross-validation
 for (i in 1:folds) {
   fold_indices <- seq(from = 1, to = nrow(X), length.out = folds + 1)
   fold_indices <- fold_indices[i:(i+1)]
@@ -766,7 +825,7 @@ cv_rmse <- mean(cv_results)
 
 cat("RMSE Cross-Validation:", cv_rmse, "\n")
 
-## Create a new row for the model results
+# Create a new row for the model results
 new_row <- data.frame(Model = "SVR",
                       MAE = mae,
                       MSE = mse,
@@ -774,7 +833,7 @@ new_row <- data.frame(Model = "SVR",
                       R2_Score = r_squared,
                       RMSE_CV = cv_rmse)
 
-## Append the new row to the models data frame
+# Append the new row to the models data frame
 models <- rbind(models, new_row)
 
 #Comparison of the result of the models
