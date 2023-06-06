@@ -12,6 +12,7 @@
 #install.packages("glmnet")
 #install.packages("xgboost")
 #install.packages("e1071")
+#install.packages("caret")
 
 
 
@@ -31,6 +32,7 @@ library(gbm)
 library(glmnet)
 library(xgboost)
 library(e1071)
+library(caret)
 
 
 ##Load Dataset
@@ -626,6 +628,10 @@ new_row <- data.frame(Model = "GradientBoosting",
 # Append the new row to the models data frame
 models <- rbind(models, new_row)
 
+
+#Linear Regression
+## Create a linear regression model
+lin_reg <- lm(y_train ~ ., data = X_train)
 
 
 # Extreme Gradient Boosting (XGBoost Model)
