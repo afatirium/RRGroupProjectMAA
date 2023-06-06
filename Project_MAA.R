@@ -601,7 +601,6 @@ cat("RMSE:", rmse, "\n")
 cat("R2 Score:", r_squared, "\n")
 
 
-
 # Perform cross-validation using cv.glmnet
 cv_fit <- cv.glmnet(x = as.matrix(X), y = y, nfolds = 5, alpha = 0.5)
 
@@ -632,6 +631,7 @@ models <- rbind(models, new_row)
 
 
 #Linear Regression
+
 ## Create a linear regression model
 lin_reg <- lm(y_train ~ ., data = X_train)
 
@@ -649,7 +649,6 @@ print(paste("MAE:", mae))
 print(paste("MSE:", mse))
 print(paste("RMSE:", rmse))
 print(paste("R2 Score:", r_squared))
-print("-" * 30)
 
 ## Perform cross-validation and calculate RMSE
 rmse_cross_val <- sqrt(mean((predict(lin_reg, newdata = X_train) - y_train)^2))
