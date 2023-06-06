@@ -655,7 +655,22 @@ rmse_cross_val <- sqrt(mean((predict(lin_reg, newdata = X_train) - y_train)^2))
 ### Print the cross-validated RMSE
 print(paste("RMSE Cross-Validation:", rmse_cross_val))
 
+## Create a data frame to store the model results
+new_row <- data.frame(
+  Model = "LinearRegression",
+  MAE = mae,
+  MSE = mse,
+  RMSE = rmse,
+  `R2 Score` = r_squared,
+  `RMSE (Cross-Validation)` = rmse_cross_val,
+  stringsAsFactors = FALSE  # Add this line to prevent factors
+)
 
+## Match the column names
+colnames(new_row) <- colnames(models)
+
+## Append the new row to the existing data frame (models)
+models <- rbind(models, new_row)
 
 
 
