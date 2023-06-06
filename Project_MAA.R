@@ -844,16 +844,35 @@ models <- rbind(models, new_row)
 
 
 
-####### Random forest
-set.seed(123)  # Set a random seed for reproducibility
+###########Random Forest
+library(randomForest)
 
-random_forest <- randomForest(y_train ~ ., data = X_train, ntree = 250)
-predictions <- predict(random_forest, newdata = X_test)
+# Remove the 'Id' column and set row names for train and test datasets
+row.names(train) <- train$Id
+train$Id <- NULL
+row.names(test) <- test$Id
+test$Id <- NULL
 
-mae <- mean(abs(y_test - predictions))
-mse <- mean((y_test - predictions)^2)
+# Split the 'train' dataset into features (X_train) and target variable (y_train)
+X_train <- train[, -1]  # Exclude the first column (target variable)
+y_train <- train[, 1]   # First column (target variable)
+
+# Fit Random Forest model
+
+train_data <- train[, -1]  # Exclude the first column (target variable)
+y <- train[, 1]  # First column (target variable)
+
+# Combine the features and target variable into train_data
+train_data <- cbind(y, train_data)
+
+random_forest <- randomForest(y ~ ., data = train_data, ntree = 250)
+predictions <- predict(random_forest, newdata = test_data)
+
+# Calculate evaluation metrics
+mae <- mean(abs(test_data$y - predictions))
+mse <- mean((test_data$y - predictions)^2)
 rmse <- sqrt(mse)
-r_squared <- 1 - sum((y_test - predictions)^2) / sum((y_test - mean(y_test))^2)
+r_squared <- 1 - sum((test_data$y - predictions)^2) / sum((test_data$y - mean(test_data$y))^2)
 
 cat("MAE:", mae, "\n")
 cat("MSE:", mse, "\n")
@@ -863,13 +882,17 @@ cat("----------------------------------------\n")
 
 # Cross-validation using the caret package
 ctrl <- trainControl(method = "cv", number = 5)  # 5-fold cross-validation
-rmse_cv <- sqrt(train(y ~ ., data = train_data, method = "rf", trControl = ctrl)$results$RMSE)
+rf_model <- train(y ~ ., data = train_data, method = "rf", trControl = ctrl)
+rmse_cv <- sqrt(mean(rf_model$resample$RMSE))
 
 cat("RMSE Cross-Validation:", rmse_cv, "\n")
 
 # Add results to models data frame
 new_row <- data.frame(Model = "RandomForest", MAE = mae, MSE = mse, RMSE = rmse, `R2 Score` = r_squared, `RMSE (Cross-Validation)` = rmse_cv)
 models <- rbind(models, new_row)
+
+
+
 
 
 #Comparison of the result of the models
