@@ -642,6 +642,13 @@ mse <- mean((ln_predictions - y_test)^2)
 rmse <- sqrt(mse)
 r_squared <- summary(lin_reg)$r.squared
 
+## Print the evaluation metrics
+print(paste("MAE:", mae))
+print(paste("MSE:", mse))
+print(paste("RMSE:", rmse))
+print(paste("R2 Score:", r_squared))
+print("-" * 30)
+
 
 
 
