@@ -35,7 +35,8 @@ library(xgboost)
 library(e1071)
 library(caret)
 library(rpart)
-
+library(randomForest)
+library(caret)
 
 ##Load Dataset
 getwd()
@@ -503,6 +504,7 @@ for (feature in features) {
   }
 }
 
+
 ##Split Into Train And Test Set
 
 # Drop unnecessary features
@@ -521,6 +523,7 @@ y_train <- y[train_indices]
 
 X_test <- X[-train_indices, ]
 y_test <- y[-train_indices]
+
 
 ### Standardize Features
 # Fit the scaler on the training data
@@ -591,6 +594,7 @@ predictions <- predict(g_boost, newdata = X_test, n.trees = 100)
 # Calculate evaluation metrics
 metrics <- evaluation(y_test, predictions)
 mae <- metrics$mae
+
 mse <- metrics$mse
 rmse <- metrics$rmse
 r_squared <- metrics$r_squared
@@ -682,6 +686,7 @@ d_tree <- rpart(y_train ~ ., data = X_train)
 
 ## Make predictions on the test set
 predictions <- predict(d_tree, newdata = X_test)
+
 
 ## Evaluate the model
 mae <- mean(abs(predictions - y_test))
@@ -791,6 +796,7 @@ predictions <- predict(svr, X_test)
 # Calculate evaluation metrics
 mae <- mean(abs(predictions - y_test))
 mse <- mean((predictions - y_test)^2)
+
 rmse <- sqrt(mse)
 r_squared <- 1 - mse / var(y_test)
 
@@ -835,6 +841,15 @@ new_row <- data.frame(Model = "SVR",
 
 # Append the new row to the models data frame
 models <- rbind(models, new_row)
+
+
+
+####### Random forest
+set.seed(123)  # Set a random seed for reproducibility
+
+
+
+
 
 #Comparison of the result of the models
 comparison_models <- models[order(models$RMSE), ]
