@@ -684,6 +684,24 @@ d_tree <- rpart(y_train ~ ., data = X_train)
 ## Make predictions on the test set
 predictions <- predict(d_tree, newdata = X_test)
 
+## Evaluate the model
+mae <- mean(abs(predictions - y_test))
+mse <- mean((predictions - y_test)^2)
+rmse <- sqrt(mse)
+r_squared <- cor(predictions, y_test)^2
+
+## Print the MAE
+cat("MAE:", mae, "\n")
+
+## Print the MSE
+cat("MSE:", mse, "\n")
+
+## Print the RMSE
+cat("RMSE:", rmse, "\n")
+
+## Print the R2 Score
+cat("R2 Score:", r_squared, "\n")
+
 
 
 
