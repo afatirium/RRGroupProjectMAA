@@ -861,7 +861,15 @@ cat("RMSE:", rmse, "\n")
 cat("R2 Score:", r_squared, "\n")
 cat("----------------------------------------\n")
 
+# Cross-validation using the caret package
+ctrl <- trainControl(method = "cv", number = 5)  # 5-fold cross-validation
+rmse_cv <- sqrt(train(y ~ ., data = train_data, method = "rf", trControl = ctrl)$results$RMSE)
 
+cat("RMSE Cross-Validation:", rmse_cv, "\n")
+
+# Add results to models data frame
+new_row <- data.frame(Model = "RandomForest", MAE = mae, MSE = mse, RMSE = rmse, `R2 Score` = r_squared, `RMSE (Cross-Validation)` = rmse_cv)
+models <- rbind(models, new_row)
 
 
 #Comparison of the result of the models
