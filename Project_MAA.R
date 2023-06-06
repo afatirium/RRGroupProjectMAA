@@ -847,6 +847,19 @@ models <- rbind(models, new_row)
 ####### Random forest
 set.seed(123)  # Set a random seed for reproducibility
 
+random_forest <- randomForest(y_train ~ ., data = X_train, ntree = 250)
+predictions <- predict(random_forest, newdata = X_test)
+
+mae <- mean(abs(y_test - predictions))
+mse <- mean((y_test - predictions)^2)
+rmse <- sqrt(mse)
+r_squared <- 1 - sum((y_test - predictions)^2) / sum((y_test - mean(y_test))^2)
+
+cat("MAE:", mae, "\n")
+cat("MSE:", mse, "\n")
+cat("RMSE:", rmse, "\n")
+cat("R2 Score:", r_squared, "\n")
+cat("----------------------------------------\n")
 
 
 
@@ -854,3 +867,4 @@ set.seed(123)  # Set a random seed for reproducibility
 #Comparison of the result of the models
 comparison_models <- models[order(models$RMSE), ]
 comparison_models
+
