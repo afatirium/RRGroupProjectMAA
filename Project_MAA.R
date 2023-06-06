@@ -633,6 +633,8 @@ models <- rbind(models, new_row)
 ## Create a linear regression model
 lin_reg <- lm(y_train ~ ., data = X_train)
 
+## Make predictions on the test set
+ln_predictions <- predict(lin_reg, newdata = X_test)
 
 # Extreme Gradient Boosting (XGBoost Model)
 
