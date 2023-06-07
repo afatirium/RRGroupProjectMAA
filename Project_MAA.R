@@ -845,31 +845,31 @@ models <- rbind(models, new_row)
 
 
 
-###########Random Forest
+#Random Forest
 
 
-# Remove the 'Id' column and set row names for train and test datasets
+## Remove the 'Id' column and set row names for train and test datasets
 row.names(train) <- train$Id
 train$Id <- NULL
 row.names(test) <- test$Id
 test$Id <- NULL
 
-# Split the 'train' dataset into features (X_train) and target variable (y_train)
+## Split the 'train' dataset into features (X_train) and target variable (y_train)
 X_train <- train[, -1]  # Exclude the first column (target variable)
 y_train <- train[, 1]   # First column (target variable)
 
-# Fit Random Forest model
+## Fit Random Forest model
 
 train_data <- train[, -1]  # Exclude the first column (target variable)
 y <- train[, 1]  # First column (target variable)
 
-# Combine the features and target variable into train_data
+## Combine the features and target variable into train_data
 train_data <- cbind(y, train_data)
 
 random_forest <- randomForest(y ~ ., data = train_data, ntree = 250)
 predictions <- predict(random_forest, newdata = test_data)
 
-# Calculate evaluation metrics
+## Calculate evaluation metrics
 mae <- mean(abs(test_data$y - predictions))
 mse <- mean((test_data$y - predictions)^2)
 rmse <- sqrt(mse)
@@ -881,36 +881,36 @@ cat("RMSE:", rmse, "\n")
 cat("R2 Score:", r_squared, "\n")
 cat("----------------------------------------\n")
 
-# Cross-validation using the caret package
+## Cross-validation using the caret package
 ctrl <- trainControl(method = "cv", number = 5)  # 5-fold cross-validation
 rf_model <- train(y ~ ., data = train_data, method = "rf", trControl = ctrl)
 rmse_cv <- sqrt(mean(rf_model$resample$RMSE))
 
 cat("RMSE Cross-Validation:", rmse_cv, "\n")
 
-# Add results to models data frame
+## Add results to models data frame
 new_row <- data.frame(Model = "RandomForest", MAE = mae, MSE = mse, RMSE = rmse, `R2 Score` = r_squared, `RMSE (Cross-Validation)` = rmse_cv)
 models <- rbind(models, new_row)
 
 
 
-####Adaptive Boosting
+#Adaptive Boosting
 
-# Split the dataset into predictor variables and target variable
+## Split the dataset into predictor variables and target variable
 X_train <- train[, -which(names(train) == "y_train")]
 y_train <- train$y_train
 
-# Fit the AdaBoost model
+## Fit the AdaBoost model
 Ada_boost <- boosting(y_train ~ ., data = train, boos = TRUE, mfinal = 250)
 
 
 # Make predictions on the test set
 predictions <- predict.boosting(Ada_boost, newdata = test)
 
-# Make predictions on the test set
+## Make predictions on the test set
 predictions <- predict.boosting(Ada_boost, newdata = test)
 
-# Define the evaluation function
+## Define the evaluation function
 evaluation <- function(actual, predicted) {
   mae <- mean(abs(actual - predicted))
   mse <- mean((actual - predicted)^2)
@@ -919,23 +919,23 @@ evaluation <- function(actual, predicted) {
   return(list(mae = mae, mse = mse, rmse = rmse, r_squared = r_squared))
 }
 
-# Evaluate the predictions
+## Evaluate the predictions
 eval_metrics <- evaluation(y_test, predictions)
 mae <- eval_metrics$mae
 mse <- eval_metrics$mse
 rmse <- eval_metrics$rmse
 r_squared <- eval_metrics$r_squared
 
-# Define the cross-validation function
+## Define the cross-validation function
 rmse_cv <- function(model) {
   rmse <- sqrt(mean((y_train - predict(model, X_train))^2))
   return(rmse)
 }
 
-# Calculate the cross-validated RMSE
+## Calculate the cross-validated RMSE
 rmse_cross_val <- rmse_cv(lin_reg)
 
-# Create a dataframe for models
+## Create a dataframe for models
 models <- data.frame(
   Model = "AdaptiveBoosting",
   MAE = mae,
@@ -945,7 +945,7 @@ models <- data.frame(
   RMSE_Cross_Validation = rmse_cross_val
 )
 
-# Print the evaluation metrics
+## Print the evaluation metrics
 cat("MAE:", mae, "\n")
 cat("MSE:", mse, "\n")
 cat("RMSE:", rmse, "\n")
