@@ -37,6 +37,7 @@ library(caret)
 library(rpart)
 library(randomForest)
 library(caret)
+library(adabag)
 
 ##Load Dataset
 getwd()
@@ -845,7 +846,7 @@ models <- rbind(models, new_row)
 
 
 ###########Random Forest
-library(randomForest)
+
 
 # Remove the 'Id' column and set row names for train and test datasets
 row.names(train) <- train$Id
@@ -890,6 +891,12 @@ cat("RMSE Cross-Validation:", rmse_cv, "\n")
 # Add results to models data frame
 new_row <- data.frame(Model = "RandomForest", MAE = mae, MSE = mse, RMSE = rmse, `R2 Score` = r_squared, `RMSE (Cross-Validation)` = rmse_cv)
 models <- rbind(models, new_row)
+
+
+
+####Adaptive Boosting
+
+
 
 
 
