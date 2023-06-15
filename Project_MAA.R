@@ -72,7 +72,6 @@ boxplot(train$SalePrice, main = "Sales Price Distribution", ylab = "Sale Price",
 
 
 # Subplot 4
-#install.packages("beanplot")
 
 beanplot(train$SalePrice, main = "Sales Price Distribution", ylab = "Sale Price",
          col = "lightpink", what = c(1, 1, 0, 0), bw = 0.2)

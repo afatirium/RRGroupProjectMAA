@@ -9,23 +9,125 @@ execute:
 editor: visual
 ---
 
-# Quarto
-
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
-
-## Running Code
-
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+# Preparing Libraries
 
 ```{r}
-1 + 1
+
+#install libraries
+#install.packages("beanplot")
+#install.packages("summarytools")
+#install.packages("ggplot2")
+#install.packages("tidyr")
+#install.packages("gridExtra")
+#install.packages("scales")
+#install.packages("zoo")
+#install.packages("dplyr")
+#install.packages("gbm")
+#install.packages("glmnet")
+#install.packages("xgboost")
+#install.packages("e1071")
+#install.packages("caret")
+#install.packages("rpart")
+
+##Import libraries
+library(beanplot)
+library(summarytools)
+library(ggplot2)
+library(tidyr)
+library(gridExtra)
+library(scales)
+library(zoo)
+library(dplyr)
+library(gbm)
+library(glmnet)
+library(xgboost)
+library(e1071)
+library(caret)
+library(rpart)
+library(randomForest)
+library(caret)
+library(adabag)
 ```
 
-You can add options to executable code like this
+# Load Dataset
 
 ```{r}
-#| echo: false
-2 * 2
+
+getwd()
+train <- read.csv("train.csv", h=T)
+test <- read.csv("test.csv", h=T)
+row.names(train) <- train$Id
+train$Id <- NULL
+row.names(test) <- test$Id
+test$Id <- NULL
 ```
 
-The `echo: false` option disables the printing of code (only output is displayed).
+# Data Exploration and Preprocessing
+
+## 1. Investigate TARGET value distribution
+
+```{r}
+par(mfrow = c(2, 2))
+par(mar = c(4, 4, 2, 1)) # Adjusting the margins for better visualization
+
+# Subplot 1
+hist(train$SalePrice, breaks = 50, main = "Sales Price Distribution", xlab = "Sale Price",
+     ylab = "Counts", col = "lightblue", border = "white")
+abline(v = mean(train$SalePrice), lty = 2, col = "red", lwd = 2)
+abline(v = median(train$SalePrice), lty = 3, col = "green", lwd = 2)
+legend("topright", legend = c("Mean", "Median"), lty = c(2, 3), col = c("red", "green"))
+
+# Subplot 2
+plot(train$SalePrice, rnorm(nrow(train), mean = 7, sd = 0.2), main = "Sales Price Distribution",
+     xlab = "Sale Price", ylab = "Random Values", pch = 16, col = "blue", cex = 0.6)
+
+# Subplot 3
+boxplot(train$SalePrice, main = "Sales Price Distribution", ylab = "Sale Price",
+        col = "lightgreen")
+
+
+```
+
+**Note:** Target is is continuous, and the distribution is skewed to the right. Mostly house price ranges from 100,000 to 200,000.
+
+## 2. Investigate Data Types
+
+```{r}
+str(train)
+```
+
+-   Some variables, such as **YearBuilt, YearRemodAdd, GarageYrBlt, YrSold, MoSold** are numeric variables, which is related to the year.
+
+-   Some variables have a lot of null value, it can be cleaned.
+
+### 2.1. Explore the categorical variables
+
+```{r}
+cat_vars <- names(train)[sapply(train, is.character)]
+cat_vars 
+```
+
+**MSSubClass** is also categorical by definition, despite its numeric values. MSSubClass should be added to the list of categorical variables.
+
+```{r}
+cat_vars <- c(cat_vars, "MSSubClass")
+length(cat_vars)
+```
+
+```{r}
+train[cat_vars] <- lapply(train[cat_vars], as.character)
+t(sapply(train[cat_vars], summary))
+```
+
+**Summary for categorical variables:**
+
+```{r}
+dfSummary(train[cat_vars]) 
+```
+
+### 2.2. Explore the continues variables
+
+```{r}
+stat_cont <- summary(train[, sapply(train, is.numeric)])
+stat_cont
+```
