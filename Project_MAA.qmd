@@ -156,6 +156,7 @@ ggplot(melted_corr, aes(x = Var1, y = Var2, fill = value)) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1),  # Rotate x-axis labels
         panel.grid = element_blank())  # Remove grid lines
 ```
+
 **Histograms for continues variables:**
 
 ```{r}
@@ -169,5 +170,5 @@ for (i in 1:length(features)) {
   hist(tr_cont[[features[i]]], main = paste("Histogram for", features[i]), xlab = features[i], col ="lightblue")
 }
 ```
-## 3. Missing values
 
+## 3. Missing values
