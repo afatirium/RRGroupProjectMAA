@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.475">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Allahverdili Minaya, Aliev Aziz, Ibadova Afet">
+<meta name="dcterms.date" content="2023-06-15">
+
+<title>Project_MAA</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="Project_MAA_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Project_MAA_files/libs/quarto-html/quarto.js"></script>
+<script src="Project_MAA_files/libs/quarto-html/popper.min.js"></script>
+<script src="Project_MAA_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Project_MAA_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Project_MAA_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Project_MAA_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Project_MAA_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Project_MAA_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Project_MAA_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Project_MAA</h1>
+<p class="subtitle lead">House pricing Model</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Allahverdili Minaya, Aliev Aziz, Ibadova Afet </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">June 15, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="preparing-libraries" class="level1">
+<h1>Preparing Libraries</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#install libraries</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("beanplot")</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("summarytools")</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("ggplot2")</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("tidyr")</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("gridExtra")</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("scales")</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("zoo")</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("dplyr")</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("gbm")</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("glmnet")</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("xgboost")</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("e1071")</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("caret")</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("rpart")</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="do">##Import libraries</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(beanplot)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(summarytools)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(zoo)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'zoo'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    as.Date, as.Date.numeric</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:gridExtra':
+
+    combine</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gbm)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loaded gbm 2.1.8.1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glmnet)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: Matrix</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'Matrix'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:tidyr':
+
+    expand, pack, unpack</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loaded glmnet 4.1-7</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xgboost)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'xgboost'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:dplyr':
+
+    slice</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(e1071)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: lattice</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(randomForest)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>randomForest 4.7-1.1</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Type rfNews() to see new features/changes/bug fixes.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'randomForest'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:dplyr':
+
+    combine</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:gridExtra':
+
+    combine</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:ggplot2':
+
+    margin</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(adabag)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: foreach</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: doParallel</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: iterators</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: parallel</code></pre>
+</div>
+</div>
+</section>
+<section id="load-dataset" class="level1">
+<h1>Load Dataset</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"train.csv"</span>, <span class="at">h=</span>T)</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"test.csv"</span>, <span class="at">h=</span>T)</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="fu">row.names</span>(train) <span class="ot">&lt;-</span> train<span class="sc">$</span>Id</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>train<span class="sc">$</span>Id <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="fu">row.names</span>(test) <span class="ot">&lt;-</span> test<span class="sc">$</span>Id</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>test<span class="sc">$</span>Id <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "C:/Users/Afat/Documents/GitHub/RRGroupProjectMAA"</code></pre>
+</div>
+</div>
+</section>
+<section id="data-exploration-and-preprocessing" class="level1">
+<h1>Data Exploration and Preprocessing</h1>
+<section id="investigate-target-value-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="investigate-target-value-distribution">1. Investigate TARGET value distribution</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">1</span>)) <span class="co"># Adjusting the margins for better visualization</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Subplot 1</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(train<span class="sc">$</span>SalePrice, <span class="at">breaks =</span> <span class="dv">50</span>, <span class="at">main =</span> <span class="st">"Sales Price Distribution"</span>, <span class="at">xlab =</span> <span class="st">"Sale Price"</span>,</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Counts"</span>, <span class="at">col =</span> <span class="st">"lightblue"</span>, <span class="at">border =</span> <span class="st">"white"</span>)</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">mean</span>(train<span class="sc">$</span>SalePrice), <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">median</span>(train<span class="sc">$</span>SalePrice), <span class="at">lty =</span> <span class="dv">3</span>, <span class="at">col =</span> <span class="st">"green"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topright"</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Mean"</span>, <span class="st">"Median"</span>), <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"green"</span>))</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Subplot 2</span></span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(train<span class="sc">$</span>SalePrice, <span class="fu">rnorm</span>(<span class="fu">nrow</span>(train), <span class="at">mean =</span> <span class="dv">7</span>, <span class="at">sd =</span> <span class="fl">0.2</span>), <span class="at">main =</span> <span class="st">"Sales Price Distribution"</span>,</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Sale Price"</span>, <span class="at">ylab =</span> <span class="st">"Random Values"</span>, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">cex =</span> <span class="fl">0.6</span>)</span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Subplot 3</span></span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(train<span class="sc">$</span>SalePrice, <span class="at">main =</span> <span class="st">"Sales Price Distribution"</span>, <span class="at">ylab =</span> <span class="st">"Sale Price"</span>,</span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="st">"lightgreen"</span>)</span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Project_MAA_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p><strong>Note:</strong> Target is is continuous, and the distribution is skewed to the right. Mostly house price ranges from 100,000 to 200,000.</p>
+</section>
+<section id="investigate-data-types" class="level2">
+<h2 class="anchored" data-anchor-id="investigate-data-types">2. Investigate Data Types</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(train)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   1460 obs. of  80 variables:
+ $ MSSubClass   : int  60 20 60 70 60 50 20 60 50 190 ...
+ $ MSZoning     : chr  "RL" "RL" "RL" "RL" ...
+ $ LotFrontage  : int  65 80 68 60 84 85 75 NA 51 50 ...
+ $ LotArea      : int  8450 9600 11250 9550 14260 14115 10084 10382 6120 7420 ...
+ $ Street       : chr  "Pave" "Pave" "Pave" "Pave" ...
+ $ Alley        : chr  NA NA NA NA ...
+ $ LotShape     : chr  "Reg" "Reg" "IR1" "IR1" ...
+ $ LandContour  : chr  "Lvl" "Lvl" "Lvl" "Lvl" ...
+ $ Utilities    : chr  "AllPub" "AllPub" "AllPub" "AllPub" ...
+ $ LotConfig    : chr  "Inside" "FR2" "Inside" "Corner" ...
+ $ LandSlope    : chr  "Gtl" "Gtl" "Gtl" "Gtl" ...
+ $ Neighborhood : chr  "CollgCr" "Veenker" "CollgCr" "Crawfor" ...
+ $ Condition1   : chr  "Norm" "Feedr" "Norm" "Norm" ...
+ $ Condition2   : chr  "Norm" "Norm" "Norm" "Norm" ...
+ $ BldgType     : chr  "1Fam" "1Fam" "1Fam" "1Fam" ...
+ $ HouseStyle   : chr  "2Story" "1Story" "2Story" "2Story" ...
+ $ OverallQual  : int  7 6 7 7 8 5 8 7 7 5 ...
+ $ OverallCond  : int  5 8 5 5 5 5 5 6 5 6 ...
+ $ YearBuilt    : int  2003 1976 2001 1915 2000 1993 2004 1973 1931 1939 ...
+ $ YearRemodAdd : int  2003 1976 2002 1970 2000 1995 2005 1973 1950 1950 ...
+ $ RoofStyle    : chr  "Gable" "Gable" "Gable" "Gable" ...
+ $ RoofMatl     : chr  "CompShg" "CompShg" "CompShg" "CompShg" ...
+ $ Exterior1st  : chr  "VinylSd" "MetalSd" "VinylSd" "Wd Sdng" ...
+ $ Exterior2nd  : chr  "VinylSd" "MetalSd" "VinylSd" "Wd Shng" ...
+ $ MasVnrType   : chr  "BrkFace" "None" "BrkFace" "None" ...
+ $ MasVnrArea   : int  196 0 162 0 350 0 186 240 0 0 ...
+ $ ExterQual    : chr  "Gd" "TA" "Gd" "TA" ...
+ $ ExterCond    : chr  "TA" "TA" "TA" "TA" ...
+ $ Foundation   : chr  "PConc" "CBlock" "PConc" "BrkTil" ...
+ $ BsmtQual     : chr  "Gd" "Gd" "Gd" "TA" ...
+ $ BsmtCond     : chr  "TA" "TA" "TA" "Gd" ...
+ $ BsmtExposure : chr  "No" "Gd" "Mn" "No" ...
+ $ BsmtFinType1 : chr  "GLQ" "ALQ" "GLQ" "ALQ" ...
+ $ BsmtFinSF1   : int  706 978 486 216 655 732 1369 859 0 851 ...
+ $ BsmtFinType2 : chr  "Unf" "Unf" "Unf" "Unf" ...
+ $ BsmtFinSF2   : int  0 0 0 0 0 0 0 32 0 0 ...
+ $ BsmtUnfSF    : int  150 284 434 540 490 64 317 216 952 140 ...
+ $ TotalBsmtSF  : int  856 1262 920 756 1145 796 1686 1107 952 991 ...
+ $ Heating      : chr  "GasA" "GasA" "GasA" "GasA" ...
+ $ HeatingQC    : chr  "Ex" "Ex" "Ex" "Gd" ...
+ $ CentralAir   : chr  "Y" "Y" "Y" "Y" ...
+ $ Electrical   : chr  "SBrkr" "SBrkr" "SBrkr" "SBrkr" ...
+ $ X1stFlrSF    : int  856 1262 920 961 1145 796 1694 1107 1022 1077 ...
+ $ X2ndFlrSF    : int  854 0 866 756 1053 566 0 983 752 0 ...
+ $ LowQualFinSF : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ GrLivArea    : int  1710 1262 1786 1717 2198 1362 1694 2090 1774 1077 ...
+ $ BsmtFullBath : int  1 0 1 1 1 1 1 1 0 1 ...
+ $ BsmtHalfBath : int  0 1 0 0 0 0 0 0 0 0 ...
+ $ FullBath     : int  2 2 2 1 2 1 2 2 2 1 ...
+ $ HalfBath     : int  1 0 1 0 1 1 0 1 0 0 ...
+ $ BedroomAbvGr : int  3 3 3 3 4 1 3 3 2 2 ...
+ $ KitchenAbvGr : int  1 1 1 1 1 1 1 1 2 2 ...
+ $ KitchenQual  : chr  "Gd" "TA" "Gd" "Gd" ...
+ $ TotRmsAbvGrd : int  8 6 6 7 9 5 7 7 8 5 ...
+ $ Functional   : chr  "Typ" "Typ" "Typ" "Typ" ...
+ $ Fireplaces   : int  0 1 1 1 1 0 1 2 2 2 ...
+ $ FireplaceQu  : chr  NA "TA" "TA" "Gd" ...
+ $ GarageType   : chr  "Attchd" "Attchd" "Attchd" "Detchd" ...
+ $ GarageYrBlt  : int  2003 1976 2001 1998 2000 1993 2004 1973 1931 1939 ...
+ $ GarageFinish : chr  "RFn" "RFn" "RFn" "Unf" ...
+ $ GarageCars   : int  2 2 2 3 3 2 2 2 2 1 ...
+ $ GarageArea   : int  548 460 608 642 836 480 636 484 468 205 ...
+ $ GarageQual   : chr  "TA" "TA" "TA" "TA" ...
+ $ GarageCond   : chr  "TA" "TA" "TA" "TA" ...
+ $ PavedDrive   : chr  "Y" "Y" "Y" "Y" ...
+ $ WoodDeckSF   : int  0 298 0 0 192 40 255 235 90 0 ...
+ $ OpenPorchSF  : int  61 0 42 35 84 30 57 204 0 4 ...
+ $ EnclosedPorch: int  0 0 0 272 0 0 0 228 205 0 ...
+ $ X3SsnPorch   : int  0 0 0 0 0 320 0 0 0 0 ...
+ $ ScreenPorch  : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ PoolArea     : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ PoolQC       : chr  NA NA NA NA ...
+ $ Fence        : chr  NA NA NA NA ...
+ $ MiscFeature  : chr  NA NA NA NA ...
+ $ MiscVal      : int  0 0 0 0 0 700 0 350 0 0 ...
+ $ MoSold       : int  2 5 9 2 12 10 8 11 4 1 ...
+ $ YrSold       : int  2008 2007 2008 2006 2008 2009 2007 2009 2008 2008 ...
+ $ SaleType     : chr  "WD" "WD" "WD" "WD" ...
+ $ SaleCondition: chr  "Normal" "Normal" "Normal" "Abnorml" ...
+ $ SalePrice    : int  208500 181500 223500 140000 250000 143000 307000 200000 129900 118000 ...</code></pre>
+</div>
+</div>
+<ul>
+<li><p>Some variables, such as <strong>YearBuilt, YearRemodAdd, GarageYrBlt, YrSold, MoSold</strong> are numeric variables, which is related to the year.</p></li>
+<li><p>Some variables have a lot of null value, it can be cleaned.</p></li>
+</ul>
+<section id="explore-the-categorical-variables" class="level3">
+<h3 class="anchored" data-anchor-id="explore-the-categorical-variables">2.1. Explore the categorical variables</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>cat_vars <span class="ot">&lt;-</span> <span class="fu">names</span>(train)[<span class="fu">sapply</span>(train, is.character)]</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>cat_vars </span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "MSZoning"      "Street"        "Alley"         "LotShape"     
+ [5] "LandContour"   "Utilities"     "LotConfig"     "LandSlope"    
+ [9] "Neighborhood"  "Condition1"    "Condition2"    "BldgType"     
+[13] "HouseStyle"    "RoofStyle"     "RoofMatl"      "Exterior1st"  
+[17] "Exterior2nd"   "MasVnrType"    "ExterQual"     "ExterCond"    
+[21] "Foundation"    "BsmtQual"      "BsmtCond"      "BsmtExposure" 
+[25] "BsmtFinType1"  "BsmtFinType2"  "Heating"       "HeatingQC"    
+[29] "CentralAir"    "Electrical"    "KitchenQual"   "Functional"   
+[33] "FireplaceQu"   "GarageType"    "GarageFinish"  "GarageQual"   
+[37] "GarageCond"    "PavedDrive"    "PoolQC"        "Fence"        
+[41] "MiscFeature"   "SaleType"      "SaleCondition"</code></pre>
+</div>
+</div>
+<p><strong>MSSubClass</strong> is also categorical by definition, despite its numeric values. MSSubClass should be added to the list of categorical variables.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>cat_vars <span class="ot">&lt;-</span> <span class="fu">c</span>(cat_vars, <span class="st">"MSSubClass"</span>)</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(cat_vars)</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 44</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>train[cat_vars] <span class="ot">&lt;-</span> <span class="fu">lapply</span>(train[cat_vars], as.character)</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(<span class="fu">sapply</span>(train[cat_vars], summary))</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              Length Class       Mode       
+MSZoning      "1460" "character" "character"
+Street        "1460" "character" "character"
+Alley         "1460" "character" "character"
+LotShape      "1460" "character" "character"
+LandContour   "1460" "character" "character"
+Utilities     "1460" "character" "character"
+LotConfig     "1460" "character" "character"
+LandSlope     "1460" "character" "character"
+Neighborhood  "1460" "character" "character"
+Condition1    "1460" "character" "character"
+Condition2    "1460" "character" "character"
+BldgType      "1460" "character" "character"
+HouseStyle    "1460" "character" "character"
+RoofStyle     "1460" "character" "character"
+RoofMatl      "1460" "character" "character"
+Exterior1st   "1460" "character" "character"
+Exterior2nd   "1460" "character" "character"
+MasVnrType    "1460" "character" "character"
+ExterQual     "1460" "character" "character"
+ExterCond     "1460" "character" "character"
+Foundation    "1460" "character" "character"
+BsmtQual      "1460" "character" "character"
+BsmtCond      "1460" "character" "character"
+BsmtExposure  "1460" "character" "character"
+BsmtFinType1  "1460" "character" "character"
+BsmtFinType2  "1460" "character" "character"
+Heating       "1460" "character" "character"
+HeatingQC     "1460" "character" "character"
+CentralAir    "1460" "character" "character"
+Electrical    "1460" "character" "character"
+KitchenQual   "1460" "character" "character"
+Functional    "1460" "character" "character"
+FireplaceQu   "1460" "character" "character"
+GarageType    "1460" "character" "character"
+GarageFinish  "1460" "character" "character"
+GarageQual    "1460" "character" "character"
+GarageCond    "1460" "character" "character"
+PavedDrive    "1460" "character" "character"
+PoolQC        "1460" "character" "character"
+Fence         "1460" "character" "character"
+MiscFeature   "1460" "character" "character"
+SaleType      "1460" "character" "character"
+SaleCondition "1460" "character" "character"
+MSSubClass    "1460" "character" "character"</code></pre>
+</div>
+</div>
+<p><strong>Summary for categorical variables:</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dfSummary</span>(train[cat_vars]) </span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Data Frame Summary  
+train  
+Dimensions: 1460 x 44  
+Duplicates: 21  
+
+-----------------------------------------------------------------------------------------------------
+No   Variable        Stats / Values   Freqs (% of Valid)   Graph                 Valid      Missing  
+---- --------------- ---------------- -------------------- --------------------- ---------- ---------
+1    MSZoning        1. C (all)         10 ( 0.7%)                               1460       0        
+     [character]     2. FV              65 ( 4.5%)                               (100.0%)   (0.0%)   
+                     3. RH              16 ( 1.1%)                                                   
+                     4. RL            1151 (78.8%)         IIIIIIIIIIIIIII                           
+                     5. RM             218 (14.9%)         II                                        
+
+2    Street          1. Grvl             6 ( 0.4%)                               1460       0        
+     [character]     2. Pave          1454 (99.6%)         IIIIIIIIIIIIIIIIIII   (100.0%)   (0.0%)   
+
+3    Alley           1. Grvl          50 (54.9%)           IIIIIIIIII            91         1369     
+     [character]     2. Pave          41 (45.1%)           IIIIIIIII             (6.2%)     (93.8%)  
+
+4    LotShape        1. IR1           484 (33.2%)          IIIIII                1460       0        
+     [character]     2. IR2            41 ( 2.8%)                                (100.0%)   (0.0%)   
+                     3. IR3            10 ( 0.7%)                                                    
+                     4. Reg           925 (63.4%)          IIIIIIIIIIII                              
+
+5    LandContour     1. Bnk             63 ( 4.3%)                               1460       0        
+     [character]     2. HLS             50 ( 3.4%)                               (100.0%)   (0.0%)   
+                     3. Low             36 ( 2.5%)                                                   
+                     4. Lvl           1311 (89.8%)         IIIIIIIIIIIIIIIII                         
+
+6    Utilities       1. AllPub        1459 (99.9%)         IIIIIIIIIIIIIIIIIII   1460       0        
+     [character]     2. NoSeWa           1 ( 0.1%)                               (100.0%)   (0.0%)   
+
+7    LotConfig       1. Corner         263 (18.0%)         III                   1460       0        
+     [character]     2. CulDSac         94 ( 6.4%)         I                     (100.0%)   (0.0%)   
+                     3. FR2             47 ( 3.2%)                                                   
+                     4. FR3              4 ( 0.3%)                                                   
+                     5. Inside        1052 (72.1%)         IIIIIIIIIIIIII                            
+
+8    LandSlope       1. Gtl           1382 (94.7%)         IIIIIIIIIIIIIIIIII    1460       0        
+     [character]     2. Mod             65 ( 4.5%)                               (100.0%)   (0.0%)   
+                     3. Sev             13 ( 0.9%)                                                   
+
+9    Neighborhood    1. NAmes         225 (15.4%)          III                   1460       0        
+     [character]     2. CollgCr       150 (10.3%)          II                    (100.0%)   (0.0%)   
+                     3. OldTown       113 ( 7.7%)          I                                         
+                     4. Edwards       100 ( 6.8%)          I                                         
+                     5. Somerst        86 ( 5.9%)          I                                         
+                     6. Gilbert        79 ( 5.4%)          I                                         
+                     7. NridgHt        77 ( 5.3%)          I                                         
+                     8. Sawyer         74 ( 5.1%)          I                                         
+                     9. NWAmes         73 ( 5.0%)          I                                         
+                     10. SawyerW       59 ( 4.0%)                                                    
+                     [ 15 others ]    424 (29.0%)          IIIII                                     
+
+10   Condition1      1. Artery          48 ( 3.3%)                               1460       0        
+     [character]     2. Feedr           81 ( 5.5%)         I                     (100.0%)   (0.0%)   
+                     3. Norm          1260 (86.3%)         IIIIIIIIIIIIIIIII                         
+                     4. PosA             8 ( 0.5%)                                                   
+                     5. PosN            19 ( 1.3%)                                                   
+                     6. RRAe            11 ( 0.8%)                                                   
+                     7. RRAn            26 ( 1.8%)                                                   
+                     8. RRNe             2 ( 0.1%)                                                   
+                     9. RRNn             5 ( 0.3%)                                                   
+
+11   Condition2      1. Artery           2 ( 0.1%)                               1460       0        
+     [character]     2. Feedr            6 ( 0.4%)                               (100.0%)   (0.0%)   
+                     3. Norm          1445 (99.0%)         IIIIIIIIIIIIIIIIIII                       
+                     4. PosA             1 ( 0.1%)                                                   
+                     5. PosN             2 ( 0.1%)                                                   
+                     6. RRAe             1 ( 0.1%)                                                   
+                     7. RRAn             1 ( 0.1%)                                                   
+                     8. RRNn             2 ( 0.1%)                                                   
+
+12   BldgType        1. 1Fam          1220 (83.6%)         IIIIIIIIIIIIIIII      1460       0        
+     [character]     2. 2fmCon          31 ( 2.1%)                               (100.0%)   (0.0%)   
+                     3. Duplex          52 ( 3.6%)                                                   
+                     4. Twnhs           43 ( 2.9%)                                                   
+                     5. TwnhsE         114 ( 7.8%)         I                                         
+
+13   HouseStyle      1. 1.5Fin        154 (10.5%)          II                    1460       0        
+     [character]     2. 1.5Unf         14 ( 1.0%)                                (100.0%)   (0.0%)   
+                     3. 1Story        726 (49.7%)          IIIIIIIII                                 
+                     4. 2.5Fin          8 ( 0.5%)                                                    
+                     5. 2.5Unf         11 ( 0.8%)                                                    
+                     6. 2Story        445 (30.5%)          IIIIII                                    
+                     7. SFoyer         37 ( 2.5%)                                                    
+                     8. SLvl           65 ( 4.5%)                                                    
+
+14   RoofStyle       1. Flat            13 ( 0.9%)                               1460       0        
+     [character]     2. Gable         1141 (78.2%)         IIIIIIIIIIIIIII       (100.0%)   (0.0%)   
+                     3. Gambrel         11 ( 0.8%)                                                   
+                     4. Hip            286 (19.6%)         III                                       
+                     5. Mansard          7 ( 0.5%)                                                   
+                     6. Shed             2 ( 0.1%)                                                   
+
+15   RoofMatl        1. ClyTile          1 ( 0.1%)                               1460       0        
+     [character]     2. CompShg       1434 (98.2%)         IIIIIIIIIIIIIIIIIII   (100.0%)   (0.0%)   
+                     3. Membran          1 ( 0.1%)                                                   
+                     4. Metal            1 ( 0.1%)                                                   
+                     5. Roll             1 ( 0.1%)                                                   
+                     6. Tar&amp;Grv         11 ( 0.8%)                                                   
+                     7. WdShake          5 ( 0.3%)                                                   
+                     8. WdShngl          6 ( 0.4%)                                                   
+
+16   Exterior1st     1. VinylSd       515 (35.3%)          IIIIIII               1460       0        
+     [character]     2. HdBoard       222 (15.2%)          III                   (100.0%)   (0.0%)   
+                     3. MetalSd       220 (15.1%)          III                                       
+                     4. Wd Sdng       206 (14.1%)          II                                        
+                     5. Plywood       108 ( 7.4%)          I                                         
+                     6. CemntBd        61 ( 4.2%)                                                    
+                     7. BrkFace        50 ( 3.4%)                                                    
+                     8. WdShing        26 ( 1.8%)                                                    
+                     9. Stucco         25 ( 1.7%)                                                    
+                     10. AsbShng       20 ( 1.4%)                                                    
+                     [ 5 others ]       7 ( 0.5%)                                                    
+
+17   Exterior2nd     1. VinylSd       504 (34.5%)          IIIIII                1460       0        
+     [character]     2. MetalSd       214 (14.7%)          II                    (100.0%)   (0.0%)   
+                     3. HdBoard       207 (14.2%)          II                                        
+                     4. Wd Sdng       197 (13.5%)          II                                        
+                     5. Plywood       142 ( 9.7%)          I                                         
+                     6. CmentBd        60 ( 4.1%)                                                    
+                     7. Wd Shng        38 ( 2.6%)                                                    
+                     8. Stucco         26 ( 1.8%)                                                    
+                     9. BrkFace        25 ( 1.7%)                                                    
+                     10. AsbShng       20 ( 1.4%)                                                    
+                     [ 6 others ]      27 ( 1.8%)                                                    
+
+18   MasVnrType      1. BrkCmn         15 ( 1.0%)                                1452       8        
+     [character]     2. BrkFace       445 (30.6%)          IIIIII                (99.5%)    (0.5%)   
+                     3. None          864 (59.5%)          IIIIIIIIIII                               
+                     4. Stone         128 ( 8.8%)          I                                         
+
+19   ExterQual       1. Ex             52 ( 3.6%)                                1460       0        
+     [character]     2. Fa             14 ( 1.0%)                                (100.0%)   (0.0%)   
+                     3. Gd            488 (33.4%)          IIIIII                                    
+                     4. TA            906 (62.1%)          IIIIIIIIIIII                              
+
+20   ExterCond       1. Ex               3 ( 0.2%)                               1460       0        
+     [character]     2. Fa              28 ( 1.9%)                               (100.0%)   (0.0%)   
+                     3. Gd             146 (10.0%)         II                                        
+                     4. Po               1 ( 0.1%)                                                   
+                     5. TA            1282 (87.8%)         IIIIIIIIIIIIIIIII                         
+
+21   Foundation      1. BrkTil        146 (10.0%)          II                    1460       0        
+     [character]     2. CBlock        634 (43.4%)          IIIIIIII              (100.0%)   (0.0%)   
+                     3. PConc         647 (44.3%)          IIIIIIII                                  
+                     4. Slab           24 ( 1.6%)                                                    
+                     5. Stone           6 ( 0.4%)                                                    
+                     6. Wood            3 ( 0.2%)                                                    
+
+22   BsmtQual        1. Ex            121 ( 8.5%)          I                     1423       37       
+     [character]     2. Fa             35 ( 2.5%)                                (97.5%)    (2.5%)   
+                     3. Gd            618 (43.4%)          IIIIIIII                                  
+                     4. TA            649 (45.6%)          IIIIIIIII                                 
+
+23   BsmtCond        1. Fa              45 ( 3.2%)                               1423       37       
+     [character]     2. Gd              65 ( 4.6%)                               (97.5%)    (2.5%)   
+                     3. Po               2 ( 0.1%)                                                   
+                     4. TA            1311 (92.1%)         IIIIIIIIIIIIIIIIII                        
+
+24   BsmtExposure    1. Av            221 (15.5%)          III                   1422       38       
+     [character]     2. Gd            134 ( 9.4%)          I                     (97.4%)    (2.6%)   
+                     3. Mn            114 ( 8.0%)          I                                         
+                     4. No            953 (67.0%)          IIIIIIIIIIIII                             
+
+25   BsmtFinType1    1. ALQ           220 (15.5%)          III                   1423       37       
+     [character]     2. BLQ           148 (10.4%)          II                    (97.5%)    (2.5%)   
+                     3. GLQ           418 (29.4%)          IIIII                                     
+                     4. LwQ            74 ( 5.2%)          I                                         
+                     5. Rec           133 ( 9.3%)          I                                         
+                     6. Unf           430 (30.2%)          IIIIII                                    
+
+26   BsmtFinType2    1. ALQ             19 ( 1.3%)                               1422       38       
+     [character]     2. BLQ             33 ( 2.3%)                               (97.4%)    (2.6%)   
+                     3. GLQ             14 ( 1.0%)                                                   
+                     4. LwQ             46 ( 3.2%)                                                   
+                     5. Rec             54 ( 3.8%)                                                   
+                     6. Unf           1256 (88.3%)         IIIIIIIIIIIIIIIII                         
+
+27   Heating         1. Floor            1 ( 0.1%)                               1460       0        
+     [character]     2. GasA          1428 (97.8%)         IIIIIIIIIIIIIIIIIII   (100.0%)   (0.0%)   
+                     3. GasW            18 ( 1.2%)                                                   
+                     4. Grav             7 ( 0.5%)                                                   
+                     5. OthW             2 ( 0.1%)                                                   
+                     6. Wall             4 ( 0.3%)                                                   
+
+28   HeatingQC       1. Ex            741 (50.8%)          IIIIIIIIII            1460       0        
+     [character]     2. Fa             49 ( 3.4%)                                (100.0%)   (0.0%)   
+                     3. Gd            241 (16.5%)          III                                       
+                     4. Po              1 ( 0.1%)                                                    
+                     5. TA            428 (29.3%)          IIIII                                     
+
+29   CentralAir      1. N               95 ( 6.5%)         I                     1460       0        
+     [character]     2. Y             1365 (93.5%)         IIIIIIIIIIIIIIIIII    (100.0%)   (0.0%)   
+
+30   Electrical      1. FuseA           94 ( 6.4%)         I                     1459       1        
+     [character]     2. FuseF           27 ( 1.9%)                               (99.9%)    (0.1%)   
+                     3. FuseP            3 ( 0.2%)                                                   
+                     4. Mix              1 ( 0.1%)                                                   
+                     5. SBrkr         1334 (91.4%)         IIIIIIIIIIIIIIIIII                        
+
+31   KitchenQual     1. Ex            100 ( 6.8%)          I                     1460       0        
+     [character]     2. Fa             39 ( 2.7%)                                (100.0%)   (0.0%)   
+                     3. Gd            586 (40.1%)          IIIIIIII                                  
+                     4. TA            735 (50.3%)          IIIIIIIIII                                
+
+32   Functional      1. Maj1            14 ( 1.0%)                               1460       0        
+     [character]     2. Maj2             5 ( 0.3%)                               (100.0%)   (0.0%)   
+                     3. Min1            31 ( 2.1%)                                                   
+                     4. Min2            34 ( 2.3%)                                                   
+                     5. Mod             15 ( 1.0%)                                                   
+                     6. Sev              1 ( 0.1%)                                                   
+                     7. Typ           1360 (93.2%)         IIIIIIIIIIIIIIIIII                        
+
+33   FireplaceQu     1. Ex             24 ( 3.1%)                                770        690      
+     [character]     2. Fa             33 ( 4.3%)                                (52.7%)    (47.3%)  
+                     3. Gd            380 (49.4%)          IIIIIIIII                                 
+                     4. Po             20 ( 2.6%)                                                    
+                     5. TA            313 (40.6%)          IIIIIIII                                  
+
+34   GarageType      1. 2Types          6 ( 0.4%)                                1379       81       
+     [character]     2. Attchd        870 (63.1%)          IIIIIIIIIIII          (94.5%)    (5.5%)   
+                     3. Basment        19 ( 1.4%)                                                    
+                     4. BuiltIn        88 ( 6.4%)          I                                         
+                     5. CarPort         9 ( 0.7%)                                                    
+                     6. Detchd        387 (28.1%)          IIIII                                     
+
+35   GarageFinish    1. Fin           352 (25.5%)          IIIII                 1379       81       
+     [character]     2. RFn           422 (30.6%)          IIIIII                (94.5%)    (5.5%)   
+                     3. Unf           605 (43.9%)          IIIIIIII                                  
+
+36   GarageQual      1. Ex               3 ( 0.2%)                               1379       81       
+     [character]     2. Fa              48 ( 3.5%)                               (94.5%)    (5.5%)   
+                     3. Gd              14 ( 1.0%)                                                   
+                     4. Po               3 ( 0.2%)                                                   
+                     5. TA            1311 (95.1%)         IIIIIIIIIIIIIIIIIII                       
+
+37   GarageCond      1. Ex               2 ( 0.1%)                               1379       81       
+     [character]     2. Fa              35 ( 2.5%)                               (94.5%)    (5.5%)   
+                     3. Gd               9 ( 0.7%)                                                   
+                     4. Po               7 ( 0.5%)                                                   
+                     5. TA            1326 (96.2%)         IIIIIIIIIIIIIIIIIII                       
+
+38   PavedDrive      1. N               90 ( 6.2%)         I                     1460       0        
+     [character]     2. P               30 ( 2.1%)                               (100.0%)   (0.0%)   
+                     3. Y             1340 (91.8%)         IIIIIIIIIIIIIIIIII                        
+
+39   PoolQC          1. Ex            2 (28.6%)            IIIII                 7          1453     
+     [character]     2. Fa            2 (28.6%)            IIIII                 (0.5%)     (99.5%)  
+                     3. Gd            3 (42.9%)            IIIIIIII                                  
+
+40   Fence           1. GdPrv          59 (21.0%)          IIII                  281        1179     
+     [character]     2. GdWo           54 (19.2%)          III                   (19.2%)    (80.8%)  
+                     3. MnPrv         157 (55.9%)          IIIIIIIIIII                               
+                     4. MnWw           11 ( 3.9%)                                                    
+
+41   MiscFeature     1. Gar2           2 ( 3.7%)                                 54         1406     
+     [character]     2. Othr           2 ( 3.7%)                                 (3.7%)     (96.3%)  
+                     3. Shed          49 (90.7%)           IIIIIIIIIIIIIIIIII                        
+                     4. TenC           1 ( 1.9%)                                                     
+
+42   SaleType        1. COD             43 ( 2.9%)                               1460       0        
+     [character]     2. Con              2 ( 0.1%)                               (100.0%)   (0.0%)   
+                     3. ConLD            9 ( 0.6%)                                                   
+                     4. ConLI            5 ( 0.3%)                                                   
+                     5. ConLw            5 ( 0.3%)                                                   
+                     6. CWD              4 ( 0.3%)                                                   
+                     7. New            122 ( 8.4%)         I                                         
+                     8. Oth              3 ( 0.2%)                                                   
+                     9. WD            1267 (86.8%)         IIIIIIIIIIIIIIIII                         
+
+43   SaleCondition   1. Abnorml        101 ( 6.9%)         I                     1460       0        
+     [character]     2. AdjLand          4 ( 0.3%)                               (100.0%)   (0.0%)   
+                     3. Alloca          12 ( 0.8%)                                                   
+                     4. Family          20 ( 1.4%)                                                   
+                     5. Normal        1198 (82.1%)         IIIIIIIIIIIIIIII                          
+                     6. Partial        125 ( 8.6%)         I                                         
+
+44   MSSubClass      1. 20            536 (36.7%)          IIIIIII               1460       0        
+     [character]     2. 60            299 (20.5%)          IIII                  (100.0%)   (0.0%)   
+                     3. 50            144 ( 9.9%)          I                                         
+                     4. 120            87 ( 6.0%)          I                                         
+                     5. 30             69 ( 4.7%)                                                    
+                     6. 160            63 ( 4.3%)                                                    
+                     7. 70             60 ( 4.1%)                                                    
+                     8. 80             58 ( 4.0%)                                                    
+                     9. 90             52 ( 3.6%)                                                    
+                     10. 190           30 ( 2.1%)                                                    
+                     [ 5 others ]      62 ( 4.2%)                                                    
+-----------------------------------------------------------------------------------------------------</code></pre>
+</div>
+</div>
+</section>
+<section id="explore-the-continues-variables" class="level3">
+<h3 class="anchored" data-anchor-id="explore-the-continues-variables">2.2. Explore the continues variables</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>stat_cont <span class="ot">&lt;-</span> <span class="fu">summary</span>(train[, <span class="fu">sapply</span>(train, is.numeric)])</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>stat_cont</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  LotFrontage        LotArea        OverallQual      OverallCond   
+ Min.   : 21.00   Min.   :  1300   Min.   : 1.000   Min.   :1.000  
+ 1st Qu.: 59.00   1st Qu.:  7554   1st Qu.: 5.000   1st Qu.:5.000  
+ Median : 69.00   Median :  9478   Median : 6.000   Median :5.000  
+ Mean   : 70.05   Mean   : 10517   Mean   : 6.099   Mean   :5.575  
+ 3rd Qu.: 80.00   3rd Qu.: 11602   3rd Qu.: 7.000   3rd Qu.:6.000  
+ Max.   :313.00   Max.   :215245   Max.   :10.000   Max.   :9.000  
+ NA's   :259                                                       
+   YearBuilt     YearRemodAdd    MasVnrArea       BsmtFinSF1    
+ Min.   :1872   Min.   :1950   Min.   :   0.0   Min.   :   0.0  
+ 1st Qu.:1954   1st Qu.:1967   1st Qu.:   0.0   1st Qu.:   0.0  
+ Median :1973   Median :1994   Median :   0.0   Median : 383.5  
+ Mean   :1971   Mean   :1985   Mean   : 103.7   Mean   : 443.6  
+ 3rd Qu.:2000   3rd Qu.:2004   3rd Qu.: 166.0   3rd Qu.: 712.2  
+ Max.   :2010   Max.   :2010   Max.   :1600.0   Max.   :5644.0  
+                               NA's   :8                        
+   BsmtFinSF2        BsmtUnfSF       TotalBsmtSF       X1stFlrSF   
+ Min.   :   0.00   Min.   :   0.0   Min.   :   0.0   Min.   : 334  
+ 1st Qu.:   0.00   1st Qu.: 223.0   1st Qu.: 795.8   1st Qu.: 882  
+ Median :   0.00   Median : 477.5   Median : 991.5   Median :1087  
+ Mean   :  46.55   Mean   : 567.2   Mean   :1057.4   Mean   :1163  
+ 3rd Qu.:   0.00   3rd Qu.: 808.0   3rd Qu.:1298.2   3rd Qu.:1391  
+ Max.   :1474.00   Max.   :2336.0   Max.   :6110.0   Max.   :4692  
+                                                                   
+   X2ndFlrSF     LowQualFinSF       GrLivArea     BsmtFullBath   
+ Min.   :   0   Min.   :  0.000   Min.   : 334   Min.   :0.0000  
+ 1st Qu.:   0   1st Qu.:  0.000   1st Qu.:1130   1st Qu.:0.0000  
+ Median :   0   Median :  0.000   Median :1464   Median :0.0000  
+ Mean   : 347   Mean   :  5.845   Mean   :1515   Mean   :0.4253  
+ 3rd Qu.: 728   3rd Qu.:  0.000   3rd Qu.:1777   3rd Qu.:1.0000  
+ Max.   :2065   Max.   :572.000   Max.   :5642   Max.   :3.0000  
+                                                                 
+  BsmtHalfBath        FullBath        HalfBath       BedroomAbvGr  
+ Min.   :0.00000   Min.   :0.000   Min.   :0.0000   Min.   :0.000  
+ 1st Qu.:0.00000   1st Qu.:1.000   1st Qu.:0.0000   1st Qu.:2.000  
+ Median :0.00000   Median :2.000   Median :0.0000   Median :3.000  
+ Mean   :0.05753   Mean   :1.565   Mean   :0.3829   Mean   :2.866  
+ 3rd Qu.:0.00000   3rd Qu.:2.000   3rd Qu.:1.0000   3rd Qu.:3.000  
+ Max.   :2.00000   Max.   :3.000   Max.   :2.0000   Max.   :8.000  
+                                                                   
+  KitchenAbvGr    TotRmsAbvGrd      Fireplaces     GarageYrBlt  
+ Min.   :0.000   Min.   : 2.000   Min.   :0.000   Min.   :1900  
+ 1st Qu.:1.000   1st Qu.: 5.000   1st Qu.:0.000   1st Qu.:1961  
+ Median :1.000   Median : 6.000   Median :1.000   Median :1980  
+ Mean   :1.047   Mean   : 6.518   Mean   :0.613   Mean   :1979  
+ 3rd Qu.:1.000   3rd Qu.: 7.000   3rd Qu.:1.000   3rd Qu.:2002  
+ Max.   :3.000   Max.   :14.000   Max.   :3.000   Max.   :2010  
+                                                  NA's   :81    
+   GarageCars      GarageArea       WoodDeckSF      OpenPorchSF    
+ Min.   :0.000   Min.   :   0.0   Min.   :  0.00   Min.   :  0.00  
+ 1st Qu.:1.000   1st Qu.: 334.5   1st Qu.:  0.00   1st Qu.:  0.00  
+ Median :2.000   Median : 480.0   Median :  0.00   Median : 25.00  
+ Mean   :1.767   Mean   : 473.0   Mean   : 94.24   Mean   : 46.66  
+ 3rd Qu.:2.000   3rd Qu.: 576.0   3rd Qu.:168.00   3rd Qu.: 68.00  
+ Max.   :4.000   Max.   :1418.0   Max.   :857.00   Max.   :547.00  
+                                                                   
+ EnclosedPorch      X3SsnPorch      ScreenPorch        PoolArea      
+ Min.   :  0.00   Min.   :  0.00   Min.   :  0.00   Min.   :  0.000  
+ 1st Qu.:  0.00   1st Qu.:  0.00   1st Qu.:  0.00   1st Qu.:  0.000  
+ Median :  0.00   Median :  0.00   Median :  0.00   Median :  0.000  
+ Mean   : 21.95   Mean   :  3.41   Mean   : 15.06   Mean   :  2.759  
+ 3rd Qu.:  0.00   3rd Qu.:  0.00   3rd Qu.:  0.00   3rd Qu.:  0.000  
+ Max.   :552.00   Max.   :508.00   Max.   :480.00   Max.   :738.000  
+                                                                     
+    MiscVal             MoSold           YrSold       SalePrice     
+ Min.   :    0.00   Min.   : 1.000   Min.   :2006   Min.   : 34900  
+ 1st Qu.:    0.00   1st Qu.: 5.000   1st Qu.:2007   1st Qu.:129975  
+ Median :    0.00   Median : 6.000   Median :2008   Median :163000  
+ Mean   :   43.49   Mean   : 6.322   Mean   :2008   Mean   :180921  
+ 3rd Qu.:    0.00   3rd Qu.: 8.000   3rd Qu.:2009   3rd Qu.:214000  
+ Max.   :15500.00   Max.   :12.000   Max.   :2010   Max.   :755000  
+                                                                    </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>tr_cont <span class="ot">&lt;-</span> train[, <span class="sc">!</span><span class="fu">sapply</span>(train, is.character)]</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(tr_cont)</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  LotFrontage LotArea OverallQual OverallCond YearBuilt YearRemodAdd MasVnrArea
+1          65    8450           7           5      2003         2003        196
+2          80    9600           6           8      1976         1976          0
+3          68   11250           7           5      2001         2002        162
+4          60    9550           7           5      1915         1970          0
+5          84   14260           8           5      2000         2000        350
+6          85   14115           5           5      1993         1995          0
+  BsmtFinSF1 BsmtFinSF2 BsmtUnfSF TotalBsmtSF X1stFlrSF X2ndFlrSF LowQualFinSF
+1        706          0       150         856       856       854            0
+2        978          0       284        1262      1262         0            0
+3        486          0       434         920       920       866            0
+4        216          0       540         756       961       756            0
+5        655          0       490        1145      1145      1053            0
+6        732          0        64         796       796       566            0
+  GrLivArea BsmtFullBath BsmtHalfBath FullBath HalfBath BedroomAbvGr
+1      1710            1            0        2        1            3
+2      1262            0            1        2        0            3
+3      1786            1            0        2        1            3
+4      1717            1            0        1        0            3
+5      2198            1            0        2        1            4
+6      1362            1            0        1        1            1
+  KitchenAbvGr TotRmsAbvGrd Fireplaces GarageYrBlt GarageCars GarageArea
+1            1            8          0        2003          2        548
+2            1            6          1        1976          2        460
+3            1            6          1        2001          2        608
+4            1            7          1        1998          3        642
+5            1            9          1        2000          3        836
+6            1            5          0        1993          2        480
+  WoodDeckSF OpenPorchSF EnclosedPorch X3SsnPorch ScreenPorch PoolArea MiscVal
+1          0          61             0          0           0        0       0
+2        298           0             0          0           0        0       0
+3          0          42             0          0           0        0       0
+4          0          35           272          0           0        0       0
+5        192          84             0          0           0        0       0
+6         40          30             0        320           0        0     700
+  MoSold YrSold SalePrice
+1      2   2008    208500
+2      5   2007    181500
+3      9   2008    223500
+4      2   2006    140000
+5     12   2008    250000
+6     10   2009    143000</code></pre>
+</div>
+</div>
+<p><strong>Plotting heatmap for visualizing correlation:</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>corr <span class="ot">&lt;-</span> <span class="fu">cor</span>(tr_cont)</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>melted_corr <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">as.table</span>(corr))</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(melted_corr) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Var1"</span>, <span class="st">"Var2"</span>, <span class="st">"value"</span>)</span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Increase the plot size</span></span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repr.plot.width =</span> <span class="dv">30</span>, <span class="at">repr.plot.height =</span> <span class="dv">30</span>)</span>
+<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(melted_corr, <span class="fu">aes</span>(<span class="at">x =</span> Var1, <span class="at">y =</span> Var2, <span class="at">fill =</span> value)) <span class="sc">+</span></span>
+<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span>  <span class="co"># Set the tile border color to white</span></span>
+<span id="cb50-13"><a href="#cb50-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"red"</span>, <span class="at">high =</span> <span class="st">"yellow"</span>) <span class="sc">+</span></span>
+<span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Correlation Heatmap"</span>) <span class="sc">+</span></span>
+<span id="cb50-15"><a href="#cb50-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">hjust =</span> <span class="dv">1</span>),  <span class="co"># Rotate x-axis labels</span></span>
+<span id="cb50-16"><a href="#cb50-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid =</span> <span class="fu">element_blank</span>())  <span class="co"># Remove grid lines</span></span>
+<span id="cb50-17"><a href="#cb50-17" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Project_MAA_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p><strong>Histograms for continues variables:</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Select continuous features to plot</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>features <span class="ot">&lt;-</span> <span class="fu">names</span>(tr_cont)[<span class="sc">!</span>(<span class="fu">names</span>(tr_cont) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Id"</span>, <span class="st">"OverallQual"</span>, <span class="st">"OverallCond"</span>, <span class="st">"YearBuilt"</span>, <span class="st">"YearRemodAdd"</span>,</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>                                                   <span class="st">"BsmtFullBath"</span>, <span class="st">"BsmtHalfBath"</span>, <span class="st">"FullBath"</span>, <span class="st">"HalfBath"</span>,</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>                                                   <span class="st">"BedroomAbvGr"</span>, <span class="st">"KitchenAbvGr"</span>, <span class="st">"TotRmsAbvGrd"</span>, <span class="st">"Fireplaces"</span>,</span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>                                                   <span class="st">"GarageYrBlt"</span>, <span class="st">"GarageCars"</span>, <span class="st">"MoSold"</span>, <span class="st">"YrSold"</span>, <span class="st">"SalePrice"</span>))]</span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(features)) {</span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hist</span>(tr_cont[[features[i]]], <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">"Histogram for"</span>, features[i]), <span class="at">xlab =</span> features[i], <span class="at">col =</span><span class="st">"lightblue"</span>)</span>
+<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Project_MAA_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="Project_MAA_files/figure-html/unnamed-chunk-12-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="Project_MAA_files/figure-html/unnamed-chunk-12-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="Project_MAA_files/figure-html/unnamed-chunk-12-4.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="Project_MAA_files/figure-html/unnamed-chunk-12-5.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="Project_MAA_files/figure-html/unnamed-chunk-12-6.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="Project_MAA_files/figure-html/unnamed-chunk-12-7.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="Project_MAA_files/figure-html/unnamed-chunk-12-8.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="Project_MAA_files/figure-html/unnamed-chunk-12-9.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="Project_MAA_files/figure-html/unnamed-chunk-12-10.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="Project_MAA_files/figure-html/unnamed-chunk-12-11.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="Project_MAA_files/figure-html/unnamed-chunk-12-12.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="Project_MAA_files/figure-html/unnamed-chunk-12-13.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="Project_MAA_files/figure-html/unnamed-chunk-12-14.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="Project_MAA_files/figure-html/unnamed-chunk-12-15.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="Project_MAA_files/figure-html/unnamed-chunk-12-16.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="Project_MAA_files/figure-html/unnamed-chunk-12-17.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="Project_MAA_files/figure-html/unnamed-chunk-12-18.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="Project_MAA_files/figure-html/unnamed-chunk-12-19.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="missing-values" class="level2">
+<h2 class="anchored" data-anchor-id="missing-values">3. Missing values</h2>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

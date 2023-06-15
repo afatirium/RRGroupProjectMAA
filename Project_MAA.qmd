@@ -131,3 +131,43 @@ dfSummary(train[cat_vars])
 stat_cont <- summary(train[, sapply(train, is.numeric)])
 stat_cont
 ```
+
+```{r}
+tr_cont <- train[, !sapply(train, is.character)]
+head(tr_cont)
+```
+
+**Plotting heatmap for visualizing correlation:**
+
+```{r}
+corr <- cor(tr_cont)
+melted_corr <- as.data.frame(as.table(corr))
+colnames(melted_corr) <- c("Var1", "Var2", "value")
+
+
+
+# Increase the plot size
+options(repr.plot.width = 30, repr.plot.height = 30)
+
+ggplot(melted_corr, aes(x = Var1, y = Var2, fill = value)) +
+  geom_tile(color = "white") +  # Set the tile border color to white
+  scale_fill_gradient(low = "red", high = "yellow") +
+  labs(title = "Correlation Heatmap") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1),  # Rotate x-axis labels
+        panel.grid = element_blank())  # Remove grid lines
+```
+**Histograms for continues variables:**
+
+```{r}
+# Select continuous features to plot
+features <- names(tr_cont)[!(names(tr_cont) %in% c("Id", "OverallQual", "OverallCond", "YearBuilt", "YearRemodAdd",
+                                                   "BsmtFullBath", "BsmtHalfBath", "FullBath", "HalfBath",
+                                                   "BedroomAbvGr", "KitchenAbvGr", "TotRmsAbvGrd", "Fireplaces",
+                                                   "GarageYrBlt", "GarageCars", "MoSold", "YrSold", "SalePrice"))]
+
+for (i in 1:length(features)) {
+  hist(tr_cont[[features[i]]], main = paste("Histogram for", features[i]), xlab = features[i], col ="lightblue")
+}
+```
+## 3. Missing values
+
