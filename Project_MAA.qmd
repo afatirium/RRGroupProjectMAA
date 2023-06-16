@@ -778,7 +778,50 @@ new_row <- data.frame(Model = "GradientBoosting",
 # Append the new row to the models data frame
 models <- rbind(models, new_row)
 ```
-3.2 Linear Regression
 
-Well, firstly create linear
+##3.2 Linear Regression
+
+Well, firstly create linear regression model
+```{r}
+## Create a linear regression model
+lin_reg <- lm(y_train ~ ., data = X_train)
+
+## Make predictions on the test set
+ln_predictions <- predict(lin_reg, newdata = X_test)
+
+## Evaluate the model
+mae <- mean(abs(ln_predictions - y_test))
+mse <- mean((ln_predictions - y_test)^2)
+rmse <- sqrt(mse)
+r_squared <- summary(lin_reg)$r.squared
+
+### Print the evaluation metrics
+print(paste("MAE:", mae))
+print(paste("MSE:", mse))
+print(paste("RMSE:", rmse))
+print(paste("R2 Score:", r_squared))
+
+## Perform cross-validation and calculate RMSE
+rmse_cross_val <- sqrt(mean((predict(lin_reg, newdata = X_train) - y_train)^2))
+
+### Print the cross-validated RMSE
+print(paste("RMSE Cross-Validation:", rmse_cross_val))
+
+## Create a data frame to store the model results
+new_row <- data.frame(
+  Model = "LinearRegression",
+  MAE = mae,
+  MSE = mse,
+  RMSE = rmse,
+  `R2 Score` = r_squared,
+  `RMSE (Cross-Validation)` = rmse_cross_val,
+  stringsAsFactors = FALSE  # Add this line to prevent factors
+)
+
+## Match the column names
+colnames(new_row) <- colnames(models)
+
+## Append the new row to the existing data frame (models)
+models <- rbind(models, new_row)
+```
 
