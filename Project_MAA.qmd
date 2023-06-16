@@ -681,7 +681,6 @@ X_test_scaled <- scale(X_test, center = attr(scaler, "scaled:center"), scale = a
 ```
 
 Calculate the mean and standard deviation from the training set:
-
 ```{r}
 scale_params <- apply(X_train, 2, mean)
 scale_sd <- apply(X_train, 2, sd)
@@ -692,8 +691,6 @@ X_train_scaled <- scale(X_train, center = scale_params, scale = scale_sd)
 # Scale the test set using the scaling parameters from the training set
 X_test_scaled <- scale(X_test, center = scale_params, scale = scale_sd)
 ```
-
-
 
 
 
