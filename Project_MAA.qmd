@@ -267,6 +267,7 @@ for (i in obj_mode) {
 ```
 
 Fill in missing values for the Utilities feature
+
 ```{r}
 test$Utilities[is.na(test$Utilities)] <- "NoSeWa"
 ```
@@ -278,6 +279,7 @@ test$Exterior1st[is.na(test$Exterior1st)] <- "ImStucc"
 ```
 
 Fill in missing values for the Exterior2nd feature
+
 ```{r}
 test$Exterior2nd[is.na(test$Exterior2nd)] <- "Other"
 ```
@@ -321,7 +323,7 @@ test$GarageYrBlt <- ifelse(is.na(test$GarageYrBlt), test$YearBuilt, test$GarageY
 
 Converting dtype to 'int64':
 
-```{r} 
+```{r}
 int_list <- c("LotFrontage", "BsmtFinSF1", "BsmtFinSF2", "BsmtUnfSF", "TotalBsmtSF", "BsmtFullBath", "BsmtHalfBath", "GarageYrBlt", "GarageCars", "GarageArea")
 
 for (i in int_list) {
@@ -331,17 +333,17 @@ for (i in int_list) {
 ```
 
 check the shape of dataset:
+
 ```{r}
 dim(train)
 ```
 
-
 ### 2.4. Feature Selection
-
 
 #### Correlation Analysis
 
 Filter numeric variables
+
 ```{r}
 numeric_vars <- sapply(train, is.numeric)
 
@@ -352,7 +354,7 @@ correlations <- cor(train[, numeric_vars])
 sorted_correlations <- sort(correlations[,"SalePrice"], decreasing = TRUE)
 ```
 
-Display the most positive correlations: 
+Display the most positive correlations:
 
 ```{r}
 cat("Most Positive Correlations:\n")
@@ -367,6 +369,7 @@ print(head(sorted_correlations, 10))
 ```
 
 **Area vs Sale Price**
+
 ```{r}
 
 par(mfrow=c(3, 6), mar=c(5, 4, 2, 1)) # Set the layout of subplots
@@ -427,6 +430,7 @@ print(plt)
 ```
 
 **House Quality**
+
 ```{r}
 par(mfrow = c(2, 4))
 labels <- c("OverallQual", "ExterQual", "BsmtQual", "HeatingQC", "KitchenQual", "FireplaceQu", "GarageQual")
@@ -478,10 +482,9 @@ for (i in labels) {
 grid.arrange(grobs = plots, nrow = 2, ncol = 2, top = "Subplots")
 ```
 
-
 **Note:** Prices of the house having Ex (excellent) and Gd (good) condition are very high.
 
-**Bathroom condition**  
+**Bathroom condition**
 
 ```{r}
 # Custom function to format labels in millions
@@ -557,7 +560,6 @@ for (i in seq_along(labels)) {
 grid.arrange(grobs = plots, ncol = 3)
 ```
 
-
 **Garage**
 
 ```{r}
@@ -572,8 +574,7 @@ for (i in 1:length(labels)) {
 }
 ```
 
-
-**Month and Year of Sold **
+**Month and Year of Sold**
 
 ```{r}
 par(mfrow = c(1, 3))
@@ -586,9 +587,7 @@ pie(years, labels = yearsold, explode = c(0.1, 0.1, 0.1, 0.1, 0.1), col = rainbo
 pie(months, labels = monthsold, explode = rep(0.1, 12), col = rainbow(length(monthsold)), main = "Month Sold", cex.main = 1.2)
 ```
 
-**Note:** Maximum houses were sold in year 2009 and in month of June.
-We can also see a decline in sales from 2009 to 2010.
-
+**Note:** Maximum houses were sold in year 2009 and in month of June. We can also see a decline in sales from 2009 to 2010.
 
 ### 2.5.Transform Skewed Features
 
@@ -627,7 +626,6 @@ train$WoodDeckSF <- train$WoodDeckSF^(1/1.2)
 train$OpenPorchSF <- train$OpenPorchSF^(1/2.5)
 ```
 
-
 ### 2.6.Convert Categorical Features To Numeric
 
 ```{r}
@@ -640,9 +638,11 @@ for (feature in features) {
   }
 }
 ```
+
 ## Split Into Train And Test Set
 
 Drop unnecessary features
+
 ```{r}
 X <- train[, !colnames(train) %in% c("SalePrice")]
 
@@ -651,12 +651,14 @@ y <- train$SalePrice
 ```
 
 Set the seed for reproducibility
+
 ```{r}
 set.seed(42)
 
 ```
 
 ### Split the data into training and test sets
+
 ```{r}
 train_indices <- sample(1:nrow(train), size = round(0.8 * nrow(train)), replace = FALSE)
 X_train <- X[train_indices, ]
@@ -669,6 +671,7 @@ y_test <- y[-train_indices]
 ### Standardize Features
 
 Fit the scaler on the training data
+
 ```{r}
 
 scaler <- scale(X_train)
@@ -681,6 +684,7 @@ X_test_scaled <- scale(X_test, center = attr(scaler, "scaled:center"), scale = a
 ```
 
 Calculate the mean and standard deviation from the training set:
+
 ```{r}
 scale_params <- apply(X_train, 2, mean)
 scale_sd <- apply(X_train, 2, sd)
@@ -692,5 +696,85 @@ X_train_scaled <- scale(X_train, center = scale_params, scale = scale_sd)
 X_test_scaled <- scale(X_test, center = scale_params, scale = scale_sd)
 ```
 
+3.  MODELS
+
+Let's build initial functions for the models:
+
+``` {r}
+# build finction for loss function
+rmse_cv <- function(model) {
+  rmse <- sqrt(-mean(cross_val_score(model, X, y, scoring = "neg_mean_squared_error", cv = 5)))
+  return(round(rmse, 4))
+}
+
+evaluation <- function(y, predictions) {
+  mae <- mean(abs(y - predictions))
+  mse <- mean((y - predictions)^2)
+  rmse <- sqrt(mse)
+  r_squared <- 1 - (sum((y - predictions)^2) / sum((y - mean(y))^2))
+  
+  return(list(mae = round(mae, 4), mse = round(mse, 4), rmse = round(rmse, 4), r_squared = round(r_squared, 4)))
+}
+
+models <- data.frame(Model = character(),
+                     MAE = numeric(),
+                     MSE = numeric(),
+                     RMSE = numeric(),
+                     R2_Score = numeric(),
+                     RMSE_CV = numeric(),
+                     stringsAsFactors = FALSE)
+````
+
+3.1 Gradient Boosting Model
+
+```{r}
+# Fit the Gradient Boosting model
+g_boost <- gbm(y_train ~ ., data = X_train, n.trees = 100, interaction.depth = 3)
+
+# Predict on the test set
+predictions <- predict(g_boost, newdata = X_test, n.trees = 100)
+
+# Calculate evaluation metrics
+metrics <- evaluation(y_test, predictions)
+mae <- metrics$mae
+
+mse <- metrics$mse
+rmse <- metrics$rmse
+r_squared <- metrics$r_squared
+
+cat("MAE:", mae, "\n")
+cat("MSE:", mse, "\n")
+cat("RMSE:", rmse, "\n")
+cat("R2 Score:", r_squared, "\n")
+
+
+# Perform cross-validation using cv.glmnet
+cv_fit <- cv.glmnet(x = as.matrix(X), y = y, nfolds = 5, alpha = 0.5)
+
+# Calculate the RMSE
+rmse_cv <- sqrt(cv_fit$cvm)
+
+# Print the RMSE for each fold
+cat("RMSE (Cross-Validation):", rmse_cv, "\n")
+
+# Get the average RMSE
+mean_rmse_cv <- mean(rmse_cv)
+cat("Mean RMSE (Cross-Validation):", mean_rmse_cv, "\n")
+
+# Append the average RMSE to the models data frame
+models$`RMSE (Cross-Validation)`[models$Model == "GradientBoosting"] <- mean_rmse_cv
+
+
+# Create a new row for the model results
+new_row <- data.frame(Model = "GradientBoosting",
+                      MAE = mae,
+                      MSE = mse,
+                      RMSE = rmse,
+                      R2_Score = r_squared,
+                      RMSE_CV = mean_rmse_cv)
+
+# Append the new row to the models data frame
+models <- rbind(models, new_row)
+```
 
 
