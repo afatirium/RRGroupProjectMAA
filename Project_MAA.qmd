@@ -696,7 +696,7 @@ X_train_scaled <- scale(X_train, center = scale_params, scale = scale_sd)
 X_test_scaled <- scale(X_test, center = scale_params, scale = scale_sd)
 ```
 
-3.  MODELS
+#3.MODELS
 
 Let's build initial functions for the models:
 
@@ -725,7 +725,7 @@ models <- data.frame(Model = character(),
                      stringsAsFactors = FALSE)
 ````
 
-3.1 Gradient Boosting Model
+##3.1 Gradient Boosting Model
 
 Codes for building model:
 
@@ -778,5 +778,7 @@ new_row <- data.frame(Model = "GradientBoosting",
 # Append the new row to the models data frame
 models <- rbind(models, new_row)
 ```
+3.2 Linear Regression
 
+Well, firstly create linear
 
