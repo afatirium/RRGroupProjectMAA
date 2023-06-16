@@ -336,6 +336,364 @@ dim(train)
 ```
 
 
-## 3. Feature Selection
+### 2.4. Feature Selection
+
+
+#### Correlation Analysis
+
+Filter numeric variables
+```{r}
+numeric_vars <- sapply(train, is.numeric)
+
+# Calculate correlation matrix
+correlations <- cor(train[, numeric_vars])
+
+# Sort correlations with 'SalePrice'
+sorted_correlations <- sort(correlations[,"SalePrice"], decreasing = TRUE)
+```
+
+Display the most positive correlations: 
+
+```{r}
+cat("Most Positive Correlations:\n")
+print(tail(sorted_correlations, 10))
+```
+
+Display the most negative correlations:
+
+```{r}
+cat("\nMost Negative Correlations:\n")
+print(head(sorted_correlations, 10))
+```
+
+**Area vs Sale Price**
+```{r}
+
+par(mfrow=c(3, 6), mar=c(5, 4, 2, 1)) # Set the layout of subplots
+
+labels <- c("LotArea","MasVnrArea","BsmtFinSF1","BsmtFinSF2",
+            "BsmtUnfSF","TotalBsmtSF","X1stFlrSF","X2ndFlrSF",
+            "LowQualFinSF","GrLivArea","GarageArea","WoodDeckSF",
+            "OpenPorchSF","EnclosedPorch","X3SsnPorch","ScreenPorch","PoolArea")
+desc <- c("Lot Size","Masonry Seneer Area","Basement Type 1 Finished",
+          "Basement Type 2 Finished","Unfinished Basement Area",
+          "Total Basement Area","First Floor","Second Floor",
+          "Low Quality Finished","Above Grade Living Area",
+          "Size of Garage","Wood Deck Area","Open Porch Area",
+          "Enclosed Porch Area","Three Season Porch Area","Screen Porch Area","Pool Area")
+
+for (i in 1:length(labels)) {
+  if (i <= 17) {
+    plot(train[[labels[i]]], train[["SalePrice"]],
+         xlab = desc[i], ylab = "Sale Price",
+         main = desc[i], pch = 16)
+  }
+}
+```
+
+It is clearly seen that there is positive correlation between price and areas i.e. if the area increases price will also increases expect 3SsnPorch (three season porch) and PoolArea.
+
+**Neighborhood vs Sale Price**
+
+```{r}
+ggplot(train, aes(x = Neighborhood, y = SalePrice)) +
+  geom_bar(stat = "identity") +
+  labs(x = NULL, y = "Sale Price") +
+  ggtitle("Neighborhood") +
+  scale_y_continuous(labels = scales::comma) +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+```
+
+Note: We can see that the prices of the house having NoRidge, NridgHt, StoneBr and Timber neighborhoods are very high.
+
+**Building type, House Style**
+
+```{r}
+labels <- c("BldgType", "HouseStyle")
+
+plt <- ggplot(train, aes(x = train[[labels[1]]], y = train[["SalePrice"]])) +
+  geom_bar(stat = "identity") +
+  labs(x = NULL) +
+  ggtitle(labels[1])
+
+plt <- plt + facet_wrap(~ train[[labels[2]]], nrow = 1)
+
+plt <- plt + theme_minimal() +
+  scale_y_continuous(labels = scales::comma) +
+  theme(plot.title = element_text(size = 14),
+        axis.text.x = element_text(angle = 90, hjust = 1))
+
+print(plt)
+```
+
+**House Quality**
+```{r}
+par(mfrow = c(2, 4))
+labels <- c("OverallQual", "ExterQual", "BsmtQual", "HeatingQC", "KitchenQual", "FireplaceQu", "GarageQual")
+col <- 1
+
+for (i in labels) {
+  if (col < 9) {
+    plot_col <- col %% 4
+    if (plot_col == 0) {
+      plot_col <- 4
+    }
+    plot_row <- ceiling(col / 4)
+    plot_index <- (plot_row - 1) * 4 + plot_col
+    
+    barplot(tapply(train$SalePrice, train[, i], mean), xlab = i, ylab = "SalePrice")
+    title(main = i)
+  }
+  
+  col <- col + 1
+}
+```
+
+**Note:** It can be seen that there is positive relation between quality and price. Price increases according to the quality.
+
+**House condition**
+
+```{r}
+labels <- c("OverallCond", "ExterCond", "BsmtCond", "GarageCond")
+cols <- 1
+
+plots <- list()
+
+for (i in labels) {
+  if (cols < 5) {
+    plt <- ggplot(train, aes(x = train[[i]], y = train[["SalePrice"]])) +
+      geom_bar(stat = "identity") +
+      labs(x = NULL) +
+      ggtitle(i) +
+      theme_minimal() +
+      theme(plot.title = element_text(size = 14),
+            axis.text.x = element_text(angle = 90, hjust = 1)) +
+      scale_y_continuous(labels = scales::comma)
+    
+    plots[[cols]] <- plt
+  }
+  cols <- cols + 1
+}
+
+grid.arrange(grobs = plots, nrow = 2, ncol = 2, top = "Subplots")
+```
+
+
+**Note:** Prices of the house having Ex (excellent) and Gd (good) condition are very high.
+
+**Bathroom condition**  
+
+```{r}
+# Custom function to format labels in millions
+formatMillions <- function(x) {
+  paste0(format(x / 1e6, big.mark = ","), "")
+}
+
+# Create individual bar plots
+plot1 <- ggplot(train, aes(x = BsmtFullBath, y = SalePrice)) +
+  geom_bar(stat = "identity") +
+  labs(x = NULL, y = "Sale Price (in million)") +
+  ggtitle("BsmtFullBath") +
+  scale_y_continuous(labels = formatMillions)
+
+plot2 <- ggplot(train, aes(x = BsmtHalfBath, y = SalePrice)) +
+  geom_bar(stat = "identity") +
+  labs(x = NULL, y = "Sale Price (in million)") +
+  ggtitle("BsmtHalfBath") +
+  scale_y_continuous(labels = formatMillions)
+
+plot3 <- ggplot(train, aes(x = FullBath, y = SalePrice)) +
+  geom_bar(stat = "identity") +
+  labs(x = NULL, y = "Sale Price (in million)") +
+  ggtitle("FullBath") +
+  scale_y_continuous(labels = formatMillions)
+
+plot4 <- ggplot(train, aes(x = HalfBath, y = SalePrice)) +
+  geom_bar(stat = "identity") +
+  labs(x = NULL, y = "Sale Price (in million)") +
+  ggtitle("HalfBath") +
+  scale_y_continuous(labels = formatMillions)
+
+# Arrange the plots in a grid
+grid.arrange(plot1, plot2, plot3, plot4, ncol = 2)
+```
+
+**Roof style and material**
+
+```{r}
+par(mfrow = c(1, 2))
+labels <- c("RoofStyle", "RoofMatl")
+
+for (i in 1:length(labels)) {
+  if (i <= 2) {
+    barplot(tapply(train$SalePrice, train[, labels[i]], mean), xlab = labels[i], ylab = "SalePrice")
+    title(main = labels[i])
+  }
+}
+```
+
+**Basement**
+
+```{r}
+# Create a list of labels
+labels <- c("BsmtExposure", "BsmtFinType1", "BsmtFinType2")
+
+# Create an empty list to store the plots
+plots <- list()
+
+# Loop through the labels and create bar plots
+for (i in seq_along(labels)) {
+  plot <- ggplot(train, aes_string(x = labels[i], y = "SalePrice")) +
+    geom_bar(stat = "identity") +
+    labs(x = NULL, y = "Sale Price") +
+    ggtitle(labels[i]) +
+    scale_y_continuous(labels = dollar_format(scale = 1e-6, prefix = "$"))
+  
+  plots[[i]] <- plot
+}
+
+
+# Arrange the plots in a grid
+grid.arrange(grobs = plots, ncol = 3)
+```
+
+
+**Garage**
+
+```{r}
+par(mfrow = c(1, 3))
+labels <- c("GarageType", "GarageFinish", "GarageCars")
+
+for (i in 1:length(labels)) {
+  if (i <= 3) {
+    barplot(tapply(train$SalePrice, train[, labels[i]], mean), xlab = labels[i], ylab = "SalePrice")
+    title(main = labels[i])
+  }
+}
+```
+
+
+**Month and Year of Sold **
+
+```{r}
+par(mfrow = c(1, 3))
+yearsold <- c(2006:2010)
+monthsold <- c("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")
+years <- table(train$YrSold)
+months <- table(train$MoSold)
+
+pie(years, labels = yearsold, explode = c(0.1, 0.1, 0.1, 0.1, 0.1), col = rainbow(length(yearsold)), main = "Year Sold", cex.main = 1.2)
+pie(months, labels = monthsold, explode = rep(0.1, 12), col = rainbow(length(monthsold)), main = "Month Sold", cex.main = 1.2)
+```
+
+**Note:** Maximum houses were sold in year 2009 and in month of June.
+We can also see a decline in sales from 2009 to 2010.
+
+
+### 2.5.Transform Skewed Features
+
+Plot histogram for each continuous feature to see if a transformation is necessary
+
+```{r}
+par(mfrow = c(4, 5), mar = c(4, 4, 2, 1), oma = c(0, 0, 2, 0))
+features <- colnames(train)
+
+col <- 1
+for (feature in features) {
+  if (class(train[[feature]]) != "character") {
+    if (!(feature %in% c("OverallQual", "OverallCond", "YearBuilt", "YearRemodAdd", "BsmtFullBath", "BsmtHalfBath", "FullBath", "HalfBath", "BedroomAbvGr", "KitchenAbvGr", "TotRmsAbvGrd", "Fireplaces", "GarageYrBlt", "GarageCars", "MoSold", "YrSold", "SalePrice"))) {
+      if (col < 21) {
+        hist(train[[feature]], main = paste("Histogram for", feature), xlab = "", ylab = "", col = "skyblue")
+      }
+      col <- col + 1
+    }
+  }
+}
+```
+
+Box-Cox Power Transformation:
+
+```{r}
+train$LotFrontage <- train$LotFrontage^(1/3)
+train$LotArea <- train$LotArea^(1/6)
+train$MasVnrArea <- train$MasVnrArea^(1/1.5)
+train$BsmtFinSF1 <- train$BsmtFinSF1^(1/1.4)
+train$BsmtUnfSF <- train$BsmtUnfSF^(1/1.5)
+train$TotalBsmtSF <- train$TotalBsmtSF^(1/1.4)
+train$X1stFlrSF <- train$X1stFlrSF^(1/4)
+train$GrLivArea <- train$GrLivArea^(1/4.5)
+train$GarageArea <- train$GarageArea^(1/1.1)
+train$WoodDeckSF <- train$WoodDeckSF^(1/1.2)
+train$OpenPorchSF <- train$OpenPorchSF^(1/2.5)
+```
+
+
+### 2.6.Convert Categorical Features To Numeric
+
+```{r}
+features <- colnames(train)
+
+for (feature in features) {
+  if (class(train[[feature]]) == "character") {
+    train[[feature]] <- as.integer(factor(train[[feature]]))
+    test[[feature]] <- as.integer(factor(test[[feature]]))
+  }
+}
+```
+## Split Into Train And Test Set
+
+Drop unnecessary features
+```{r}
+X <- train[, !colnames(train) %in% c("SalePrice")]
+
+# Create the target variable
+y <- train$SalePrice
+```
+
+Set the seed for reproducibility
+```{r}
+set.seed(42)
+
+```
+
+### Split the data into training and test sets
+```{r}
+train_indices <- sample(1:nrow(train), size = round(0.8 * nrow(train)), replace = FALSE)
+X_train <- X[train_indices, ]
+y_train <- y[train_indices]
+
+X_test <- X[-train_indices, ]
+y_test <- y[-train_indices]
+```
+
+### Standardize Features
+
+Fit the scaler on the training data
+```{r}
+
+scaler <- scale(X_train)
+
+# Apply the scaler to the training data
+X_train_scaled <- scaler
+
+# Apply the scaler to the test data
+X_test_scaled <- scale(X_test, center = attr(scaler, "scaled:center"), scale = attr(scaler, "scaled:scale"))
+```
+
+Calculate the mean and standard deviation from the training set:
+
+```{r}
+scale_params <- apply(X_train, 2, mean)
+scale_sd <- apply(X_train, 2, sd)
+
+# Scale the training set
+X_train_scaled <- scale(X_train, center = scale_params, scale = scale_sd)
+
+# Scale the test set using the scaling parameters from the training set
+X_test_scaled <- scale(X_test, center = scale_params, scale = scale_sd)
+```
+
+
+
 
 
