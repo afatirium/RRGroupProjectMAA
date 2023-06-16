@@ -727,6 +727,8 @@ models <- data.frame(Model = character(),
 
 3.1 Gradient Boosting Model
 
+Codes for building model:
+
 ```{r}
 # Fit the Gradient Boosting model
 g_boost <- gbm(y_train ~ ., data = X_train, n.trees = 100, interaction.depth = 3)
