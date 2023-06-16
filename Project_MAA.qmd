@@ -879,4 +879,52 @@ models <- rbind(models, new_row)
 
 ```
 
-##
+###3.4 Extreme Gradient Boosting (XGBoost Model)
+```{r}
+# Convert the data to DMatrix format
+dtrain <- xgb.DMatrix(data = as.matrix(X_train), label = y_train)
+dtest <- xgb.DMatrix(data = as.matrix(X_test))
+
+# Set the parameters for the XGBoost model
+params <- list(
+  objective = "reg:squarederror",
+  eval_metric = "rmse"
+)
+
+# Train the XGBoost model
+Xg_boost <- xgb.train(params = params, data = dtrain, nrounds = 100)
+
+# Predict on the test set
+predictions <- predict(Xg_boost, newdata = dtest)
+
+# Calculate evaluation metrics
+mae <- mean(abs(predictions - y_test))
+mse <- mean((predictions - y_test)^2)
+rmse <- sqrt(mse)
+r_squared <- 1 - mse / var(y_test)
+
+cat("MAE:", mae, "\n")
+cat("MSE:", mse, "\n")
+cat("RMSE:", rmse, "\n")
+cat("R2 Score:", r_squared, "\n")
+
+
+# Perform cross-validation to calculate RMSE
+cv_result <- xgb.cv(params = params, data = dtrain, nfold = 5, nrounds = 100)
+rmse_cross_val <- min(cv_result$evaluation_log$test_rmse_mean)
+
+cat("RMSE Cross-Validation:", rmse_cross_val, "\n")
+
+# Create a new row for the model results
+new_row <- data.frame(Model = "XGradientBoosting",
+                      MAE = mae,
+                      MSE = mse,
+                      RMSE = rmse,
+                      R2_Score = r_squared,
+                      RMSE_CV = rmse_cross_val)
+
+# Append the new row to the models data frame
+models <- rbind(models, new_row)
+
+```
+
