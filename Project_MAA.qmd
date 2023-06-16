@@ -171,4 +171,171 @@ for (i in 1:length(features)) {
 }
 ```
 
-## 3. Missing values
+### 2.3. Missing values
+
+Check the missing values for train dataset:
+
+```{r}
+
+missing_values <- colSums(is.na(train))
+
+missing_values <- missing_values[order(-missing_values)]
+
+```
+
+Display the top 20 variables with the highest number of missing values
+
+```{r}
+head(missing_values, 20)
+```
+
+Check the missing values for test dataset:
+
+```{r}
+
+missing_values <- colSums(is.na(test))
+
+missing_values <- missing_values[order(-missing_values)]
+```
+
+Display the top 35 variables with the highest number of missing values
+
+```{r}
+head(missing_values, 35)
+```
+
+***Note:*** For both dataset some variables have a lot missing values: PoolQC, MiscFeature, Alley, Fence, FireplaceQu, LotFrontage
+
+Drop the "PoolQC" column from the train dataset
+
+```{r}
+train <- train[, !(colnames(train) %in% "PoolQC")]
+```
+
+Drop the "PoolQC" column from the test dataset:
+
+```{r}
+test <- test[, !(colnames(test) %in% "PoolQC")]
+```
+
+**Fill the missing variables for the categorical variables:**
+
+Define the features with missing values:
+
+```{r}
+obj_NA <- c("Alley", "BsmtQual", "BsmtCond", "BsmtExposure", "BsmtFinType1",
+
+"BsmtFinType2", "FireplaceQu", "GarageType", "GarageFinish",
+
+"GarageQual", "GarageCond", "Fence", "MiscFeature")
+```
+
+Fill in missing values with "NA" for the specified features in the train dataset
+
+```{r}
+for (i in obj_NA) {
+
+train[, i][is.na(train[, i])] <- "NA"
+
+}
+```
+
+Fill in missing values with "NA" for the specified features in the test dataset:
+
+```{r}
+for (i in obj_NA) {
+
+test[, i][is.na(test[, i])] <- "NA"
+
+}
+```
+
+Fill in missing values for the MSZoning, MasVnrType, Electrical, KitchenQual, Functional and SaleType:
+
+```{r}
+obj_mode <- c("MSZoning", "MasVnrType", "Electrical", "KitchenQual", "Functional", "SaleType")
+
+train$MSZoning[train$MSZoning == "C (all)"] <- "C"
+test$MSZoning[test$MSZoning == "C (all)"] <- "C"
+```
+
+```{r}
+for (i in obj_mode) {
+  train[[i]][is.na(train[[i]])] <- names(which.max(table(train[[i]])))
+  test[[i]][is.na(test[[i]])] <- names(which.max(table(test[[i]])))
+}
+```
+
+Fill in missing values for the Utilities feature
+```{r}
+test$Utilities[is.na(test$Utilities)] <- "NoSeWa"
+```
+
+Fill in missing values for the Exterior1st feature
+
+```{r}
+test$Exterior1st[is.na(test$Exterior1st)] <- "ImStucc"
+```
+
+Fill in missing values for the Exterior2nd feature
+```{r}
+test$Exterior2nd[is.na(test$Exterior2nd)] <- "Other"
+```
+
+**Clean continues variables:**
+
+Fill missing variables
+
+Fill in missing values for the LotFrontage and MasVnrArea features
+
+```{r}
+obj_median <- c("LotFrontage", "MasVnrArea")
+
+for (i in obj_median) {
+  train[[i]] <- na.aggregate(train[[i]], FUN = median)
+  test[[i]] <- na.aggregate(test[[i]], FUN = median)
+}
+```
+
+Fill in missing values for the BsmtFinSF1, BsmtFinSF2, BsmtUnfSF, TotalBsmtSF, BsmtFullBath, BsmtHalfBath, GarageCars and GarageArea features
+
+```{r}
+Mode <- function(x) {
+  ux <- unique(x)
+  ux[which.max(tabulate(match(x, ux)))]
+}
+
+obj_mode <- c("BsmtFinSF1", "BsmtFinSF2", "BsmtUnfSF", "TotalBsmtSF", "BsmtFullBath", "BsmtHalfBath", "GarageCars", "GarageArea")
+
+for (i in obj_mode) {
+  test[[i]] <- replace(test[[i]], is.na(test[[i]]), Mode(test[[i]]))
+}
+```
+
+Fill in missing values for the GarageYrBlt feature
+
+```{r}
+train$GarageYrBlt <- ifelse(is.na(train$GarageYrBlt), train$YearBuilt, train$GarageYrBlt)
+test$GarageYrBlt <- ifelse(is.na(test$GarageYrBlt), test$YearBuilt, test$GarageYrBlt)
+```
+
+Converting dtype to 'int64':
+
+```{r} 
+int_list <- c("LotFrontage", "BsmtFinSF1", "BsmtFinSF2", "BsmtUnfSF", "TotalBsmtSF", "BsmtFullBath", "BsmtHalfBath", "GarageYrBlt", "GarageCars", "GarageArea")
+
+for (i in int_list) {
+  train[[i]] <- as.integer(train[[i]])
+  test[[i]] <- as.integer(test[[i]])
+}
+```
+
+check the shape of dataset:
+```{r}
+dim(train)
+```
+
+
+## 3. Feature Selection
+
+
