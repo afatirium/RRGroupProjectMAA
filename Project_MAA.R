@@ -883,8 +883,8 @@ new_row <- data.frame(Model = "GradientBoosting",
                       MAE = mae, 
                       MSE = mse, 
                       RMSE = rmse, 
-                      `R2 Score` = r_squared, 
-                      `RMSE_CV` = rmse_cross_val)
+                      R2_Score = r_squared, 
+                      RMSE_CV = rmse_cross_val)
 models <- rbind(models, new_row)
 
 
