@@ -3,11 +3,25 @@ title: "Project_MAA"
 subtitle: "House pricing Model"
 author: "Allahverdili Minaya, Aliev Aziz, Ibadova Afet"
 date: "06/15/2023"
-format: html
-execute:
-  echo: fenced
-editor: visual
+output:
+  html_document:
+    theme: spacelab
+    highlight: tango
+    toc: yes
+    toc_float:
+      collapsed: no
+      smooth_scroll: yes
+  pdf_document:
+    toc: yes
 ---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo    = TRUE, 
+                      cache   = TRUE,
+                      message = FALSE, 
+                      warning = FALSE)
+options(scipen = 10)
+```
 
 # Preparing Libraries
 
