@@ -930,7 +930,7 @@ new_row <- data.frame(Model = "GradientBoosting",
 models <- rbind(models, new_row)
 ```
 
-## 5. Extreme Gradient Boosting (XGBoost Model)
+## 5. Extreme Gradient Boosting (XGBoost)
 
 ```{r}
 # Convert the data to DMatrix format
