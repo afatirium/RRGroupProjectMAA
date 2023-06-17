@@ -890,6 +890,8 @@ Codes for building model:
 
 ```{r}
 
+# Gradient Bossting
+
 g_boost <- gbm(y_train ~ ., data = X_train, n.trees = 100, interaction.depth = 3,distribution = "gaussian")
 
 predictions <- predict(g_boost, newdata = X_test, n.trees = 100)
@@ -913,10 +915,9 @@ print(paste("RMSE_CV:", rmse_cross_val))
 new_row <- data.frame(Model = "GradientBoosting", 
                       MAE = mae, 
                       MSE = mse, 
-                      RMSE = rmse,
-                      `R2 Score` = r_squared, 
-                      `RMSE_CV` = rmse_cross_val)
-
+                      RMSE = rmse, 
+                      R2_Score = r_squared, 
+                      RMSE_CV = rmse_cross_val)
 
 models <- rbind(models, new_row)
 ```
