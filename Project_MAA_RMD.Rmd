@@ -764,7 +764,7 @@ new_row <- data.frame(
   MSE = mse,
   RMSE = rmse,
   `R2 Score` = r_squared,
-  `RMSE (Cross-Validation)` = rmse_cross_val,
+  `RMSE_CV` = rmse_cross_val,
   stringsAsFactors = FALSE  # Add this line to prevent factors
 )
 
@@ -812,7 +812,7 @@ cv_predictions <- predict(cv_model, newdata = X_train)
 rmse_cross_val <- sqrt(mean((cv_predictions - y_train)^2))
 
 ## Print the RMSE Cross-Validation
-cat("RMSE Cross-Validation:", round(rmse_cross_val, 2), "\n")
+cat("RMSE_CV:", round(rmse_cross_val, 2), "\n")
 
 ## Create a new row for the model's results
 new_row <- data.frame(
@@ -821,7 +821,7 @@ new_row <- data.frame(
   MSE = mse,
   RMSE = rmse,
   `R2 Score` = r_squared,
-  `RMSE (Cross-Validation)` = rmse_cross_val
+  `RMSE_CV` = rmse_cross_val
 )
 
 ## Match the column names
@@ -840,7 +840,7 @@ models <- rbind(models, new_row)
 ctrl <- trainControl(method = "cv", number = 5)
 
 # Fit the Random Forest model with cross-validation
-random_forest <- train(x = X_train, y = y_train, method = "rf", ntree = 250, trControl = ctrl)
+random_forest <- train(x = X_train, y = y_train, method = "rf", ntree = 150, trControl = ctrl)
 
 # Make predictions on the test set
 predictions <- predict(random_forest, X_test)
@@ -856,7 +856,7 @@ print(paste("R2 Score:", round(evaluation$r_squared, 4)))
 
 # Calculate RMSE using cross-validation
 rmse_cross_val <- sqrt(random_forest$results$RMSE)
-print(paste("RMSE Cross-Validation:", round(rmse_cross_val, 4)))
+print(paste("RMSE_CV:", round(rmse_cross_val, 4)))
 
 # Create a new row for the models dataframe
 new_row <- data.frame(Model = "RandomForest",
@@ -870,8 +870,44 @@ new_row <- data.frame(Model = "RandomForest",
 models <- rbind(models, new_row)
 ```
 
+## 4. Gradient Boosting Model
 
-## 4. Extreme Gradient Boosting (XGBoost)
+Codes for building model:
+
+```{r}
+
+g_boost <- gbm(y_train ~ ., data = X_train, n.trees = 100, interaction.depth = 3,distribution = "gaussian")
+
+predictions <- predict(g_boost, newdata = X_test, n.trees = 100)
+
+mae <- mean(abs(predictions - y_test))
+mse <- mean((predictions - y_test)^2)
+rmse <- sqrt(mse)
+r_squared <- 1 - (sum((y_test - predictions)^2) / sum((y_test - mean(y_test))^2))
+
+print(paste("MAE:", mae))
+print(paste("MSE:", mse))
+print(paste("RMSE:", rmse))
+print(paste("R2 Score:", r_squared))
+
+
+rmse_cross_val <- sqrt(crossprod(y_train - predict(g_boost, newdata = X_train, n.trees = 100))/(length(y_train) - 1))
+
+print(paste("RMSE_CV:", rmse_cross_val))
+
+
+new_row <- data.frame(Model = "GradientBoosting", 
+                      MAE = mae, 
+                      MSE = mse, 
+                      RMSE = rmse,
+                      `R2 Score` = r_squared, 
+                      `RMSE_CV` = rmse_cross_val)
+
+
+models <- rbind(models, new_row)
+```
+
+## 5. Extreme Gradient Boosting (XGBoost)
 
 ```{r}
 # Convert the data to DMatrix format
@@ -921,7 +957,7 @@ models <- rbind(models, new_row)
 
 ```
 
-## 5. Adaptive Boosting
+## 6. Adaptive Boosting
 
 ```{r}
 
@@ -960,14 +996,13 @@ rmse_cross_val <- sqrt(-train(Ada_boost, X_train, y_train, trControl = rmse_cros
 cat("RMSE Cross-Validation:", rmse_cross_val, "\n")
 
 # Create a new row for the model's results
-new_row <- data.frame(Model = "AdaBoost", MAE = mae, MSE = mse, RMSE = rmse, `R2 Score` = r_squared, `RMSE (Cross-Validation)` = rmse_cross_val)
+new_row <- data.frame(Model = "AdaBoost", MAE = mae, MSE = mse, RMSE = rmse, `R2 Score` = r_squared, `RMSE_CV` = rmse_cross_val)
 
 # Append the new row to the models dataframe
 models <- rbind(models, new_row)
 ```
 
-
-## 6. Support Vector Regression (SVR)
+## 7. Support Vector Regression (SVR)
 
 ```{r}
 # Fit the SVR model
@@ -1024,36 +1059,6 @@ new_row <- data.frame(Model = "SVR",
 
 # Append the new row to the models data frame
 models <- rbind(models, new_row)
-```
-# 7.Gradient Boosting
-
-```{r}
-# Gradient Bossting
-
-g_boost <- gbm(y_train ~ ., data = X_train, n.trees = 100, interaction.depth = 3,distribution = "gaussian")
-
-predictions <- predict(g_boost, newdata = X_test, n.trees = 100)
-
-mae <- mean(abs(predictions - y_test))
-mse <- mean((predictions - y_test)^2)
-rmse <- sqrt(mse)
-r_squared <- 1 - (sum((y_test - predictions)^2) / sum((y_test - mean(y_test))^2))
-
-print(paste("MAE:", mae))
-print(paste("MSE:", mse))
-print(paste("RMSE:", rmse))
-print(paste("R2 Score:", r_squared))
-
-
-rmse_cross_val <- sqrt(crossprod(y_train - predict(g_boost, newdata = X_train, n.trees = 100))/(length(y_train) - 1))
-
-print(paste("RMSE_CV:", rmse_cross_val))
-
-
-new_row <- data.frame(Model = "GradientBoosting", MAE = mae, MSE = mse, RMSE = rmse, `R2 Score` = r_squared, `RMSE_CV` = rmse_cross_val)
-
-models <- rbind(models, new_row)
-
 ```
 
 # Comparison of the results of the models
