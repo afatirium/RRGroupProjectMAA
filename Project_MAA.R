@@ -15,11 +15,6 @@
 #install.packages("caret")
 #install.packages("rpart")
 
-
-
-
-
-
 ##Import libraries
 library(beanplot)
 library(summarytools)
@@ -573,16 +568,6 @@ models <- data.frame(Model = character(),
                      RMSE_CV = numeric(),
                      stringsAsFactors = FALSE)
 
-
-
-
-
-
-
-
-
-
-
 # Gradient Boosting Model
 
 # Fit the Gradient Boosting model
@@ -725,16 +710,11 @@ new_row <- data.frame(
   `R2 Score` = r_squared,
   `RMSE (Cross-Validation)` = rmse_cross_val
 )
+## Match the column names
+colnames(new_row) <- colnames(models)
 
 ## Append the new row to the existing models dataframe
 models <- rbind(models, new_row)
-
-
-
-
-
-
-
 
 
 # Extreme Gradient Boosting (XGBoost Model)
@@ -846,49 +826,37 @@ models <- rbind(models, new_row)
 
 #Random Forest
 
+# Define the cross-validation control
+ctrl <- trainControl(method = "cv", number = 5)
 
-## Remove the 'Id' column and set row names for train and test datasets
-row.names(train) <- train$Id
-train$Id <- NULL
-row.names(test) <- test$Id
-test$Id <- NULL
+# Fit the Random Forest model with cross-validation
+random_forest <- train(x = X_train, y = y_train, method = "rf", ntree = 250, trControl = ctrl)
 
-## Split the 'train' dataset into features (X_train) and target variable (y_train)
-X_train <- train[, -1]  # Exclude the first column (target variable)
-y_train <- train[, 1]   # First column (target variable)
+# Make predictions on the test set
+predictions <- predict(random_forest, X_test)
 
-## Fit Random Forest model
+# Evaluate the model
+evaluation <- evaluation(y_test, predictions)
 
-train_data <- train[, -1]  # Exclude the first column (target variable)
-y <- train[, 1]  # First column (target variable)
+# Print the evaluation metrics
+print(paste("MAE:", round(evaluation$mae, 4)))
+print(paste("MSE:", round(evaluation$mse, 4)))
+print(paste("RMSE:", round(evaluation$rmse, 4)))
+print(paste("R2 Score:", round(evaluation$r_squared, 4)))
 
-## Combine the features and target variable into train_data
-train_data <- cbind(y, train_data)
+# Calculate RMSE using cross-validation
+rmse_cross_val <- sqrt(random_forest$results$RMSE)
+print(paste("RMSE Cross-Validation:", round(rmse_cross_val, 4)))
 
-random_forest <- randomForest(y ~ ., data = train_data, ntree = 250)
-predictions <- predict(random_forest, newdata = test_data)
+# Create a new row for the models dataframe
+new_row <- data.frame(Model = "RandomForest",
+                      MAE = evaluation$mae,
+                      MSE = evaluation$mse,
+                      RMSE = evaluation$rmse,
+                      R2_Score = evaluation$r_squared,
+                      RMSE_CV = rmse_cross_val)
 
-## Calculate evaluation metrics
-mae <- mean(abs(test_data$y - predictions))
-mse <- mean((test_data$y - predictions)^2)
-rmse <- sqrt(mse)
-r_squared <- 1 - sum((test_data$y - predictions)^2) / sum((test_data$y - mean(test_data$y))^2)
-
-cat("MAE:", mae, "\n")
-cat("MSE:", mse, "\n")
-cat("RMSE:", rmse, "\n")
-cat("R2 Score:", r_squared, "\n")
-cat("----------------------------------------\n")
-
-## Cross-validation using the caret package
-ctrl <- trainControl(method = "cv", number = 5)  # 5-fold cross-validation
-rf_model <- train(y ~ ., data = train_data, method = "rf", trControl = ctrl)
-rmse_cv <- sqrt(mean(rf_model$resample$RMSE))
-
-cat("RMSE Cross-Validation:", rmse_cv, "\n")
-
-## Add results to models data frame
-new_row <- data.frame(Model = "RandomForest", MAE = mae, MSE = mse, RMSE = rmse, `R2 Score` = r_squared, `RMSE (Cross-Validation)` = rmse_cv)
+# Append the new row to the models dataframe
 models <- rbind(models, new_row)
 
 
@@ -949,14 +917,7 @@ cat("MAE:", mae, "\n")
 cat("MSE:", mse, "\n")
 cat("RMSE:", rmse, "\n")
 cat("R2 Score:", r_squared, "\n")
-cat("-----------------------------\n")
 cat("RMSE Cross-Validation:", rmse_cross_val, "\n")
-
-
-
-
-
-
 
 
 
