@@ -1040,3 +1040,62 @@ cat("R2 Score:", r_squared, "\n")
 cat("-----------------------------\n")
 cat("RMSE Cross-Validation:", rmse_cross_val, "\n")
 ```
+
+## 7. Support Vector Regression (SVR)
+
+```{r}
+# Fit the SVR model
+svr <- svm(X_train, y_train, kernel = "radial", cost = 100000)
+
+# Predict on the test set
+predictions <- predict(svr, X_test)
+
+# Calculate evaluation metrics
+mae <- mean(abs(predictions - y_test))
+mse <- mean((predictions - y_test)^2)
+
+rmse <- sqrt(mse)
+r_squared <- 1 - mse / var(y_test)
+
+cat("MAE:", mae, "\n")
+cat("MSE:", mse, "\n")
+cat("RMSE:", rmse, "\n")
+cat("R2 Score:", r_squared, "\n")
+
+
+# Perform cross-validation to calculate RMSE
+set.seed(42)
+folds <- 5
+cv_results <- vector("double", folds)
+
+# Split the data into folds and perform cross-validation
+for (i in 1:folds) {
+  fold_indices <- seq(from = 1, to = nrow(X), length.out = folds + 1)
+  fold_indices <- fold_indices[i:(i+1)]
+  train_indices <- setdiff(1:nrow(X), fold_indices)
+  
+  fold_X_train <- X[train_indices, ]
+  fold_y_train <- y[train_indices]
+  fold_X_test <- X[fold_indices, ]
+  fold_y_test <- y[fold_indices]
+  
+  fold_svr <- svm(fold_X_train, fold_y_train, kernel = "radial", cost = 100000)
+  fold_predictions <- predict(fold_svr, fold_X_test)
+  cv_results[i] <- sqrt(mean((fold_predictions - fold_y_test)^2))
+}
+
+cv_rmse <- mean(cv_results)
+
+cat("RMSE Cross-Validation:", cv_rmse, "\n")
+
+# Create a new row for the model results
+new_row <- data.frame(Model = "SVR",
+                      MAE = mae,
+                      MSE = mse,
+                      RMSE = rmse,
+                      R2_Score = r_squared,
+                      RMSE_CV = cv_rmse)
+
+# Append the new row to the models data frame
+models <- rbind(models, new_row)
+```
