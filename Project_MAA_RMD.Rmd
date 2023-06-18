@@ -60,9 +60,6 @@ library(e1071)
 library(caret)
 library(rpart)
 library(randomForest)
-library(adabag)
-library(ada)
-library(tictoc)
 
 ```
 
@@ -972,52 +969,7 @@ models <- rbind(models, new_row)
 
 ```
 
-## 6. Adaptive Boosting
-
-```{r}
-
-# Convert y_train to a factor since boosting requires a factor outcome
-y_train <- as.factor(y_train)
-
-# Combine X_train and y_train into a single data frame
-train_data <- cbind(X_train, y_train)
-
-# Train the AdaBoost model
-
-tic()
-Ada_boost <- boosting(y_train ~ ., data = train_data)
-toc()
-
-# Make predictions on the test set
-predictions <- predict.boosting(Ada_boost, newdata = X_test)
-
-# Evaluate the model
-mae <- mean(abs(predictions - y_test))
-mse <- mean((predictions - y_test)^2)
-rmse <- sqrt(mse)
-r_squared <- 1 - sum((y_test - predictions)^2) / sum((y_test - mean(y_test))^2)
-
-# Print the evaluation metrics
-cat("MAE:", mae, "\n")
-cat("MSE:", mse, "\n")
-cat("RMSE:", rmse, "\n")
-cat("R2 Score:", r_squared, "\n")
-
-# Calculate RMSE using cross-validation
-rmse_cross_val <- trainControl(method = "cv", number = 10)  # Assuming 10-fold cross-validation
-rmse_cross_val <- sqrt(-train(Ada_boost, X_train, y_train, trControl = rmse_cross_val)$results$RMSE)
-
-# Print the RMSE from cross-validation
-cat("RMSE Cross-Validation:", rmse_cross_val, "\n")
-
-# Create a new row for the model's results
-new_row <- data.frame(Model = "AdaBoost", MAE = mae, MSE = mse, RMSE = rmse, `R2 Score` = r_squared, `RMSE_CV` = rmse_cross_val)
-
-# Append the new row to the models dataframe
-models <- rbind(models, new_row)
-```
-
-## 7. Support Vector Regression (SVR)
+## 6. Support Vector Regression (SVR)
 
 ```{r}
 # Fit the SVR model
